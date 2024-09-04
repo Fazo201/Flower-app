@@ -12,7 +12,7 @@ final class AppThemes {
       : darkTheme = ThemeData(
           brightness: Brightness.dark,
           colorScheme: darkColorScheme,
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 41),
           // textTheme: const AppTextStyle(),
         ),
         lightTheme = ThemeData(
@@ -34,9 +34,9 @@ final class AppThemes {
   static ThemeData dark() => ThemeData(
         brightness: Brightness.dark,
         colorScheme: darkColorScheme,
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 41),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 18, 18, 41),
         ),
       );
 

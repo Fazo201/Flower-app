@@ -17,6 +17,7 @@ const ColorScheme lightColorScheme = ColorScheme(
   errorContainer: Color(0xFFFD3654), 
   onErrorContainer: Color(0xFFFFE1E7),
   inverseSurface: Color.fromRGBO(0, 0, 0, 1),
+  shadow: Color.fromARGB(255, 200, 200, 200),
 
   ///Don't need ones!!!
   onSecondary: Color(0xFF000000),
@@ -51,6 +52,7 @@ const ColorScheme darkColorScheme = ColorScheme(
   secondaryContainer: Color(0xFFFFAD30), ///FFAD30
   surface: Color(0xFF001125), ///001125 For backgrounds of (Scaffold, app, ...).
   onSurface: Color(0xffeceded),
+  shadow: Color.fromARGB(255, 96, 96, 96),
 
   ///Don't need ones!!!
   onSecondary: Color(0xff141210),

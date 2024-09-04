@@ -1,6 +1,6 @@
 import "package:flower_app/src/core/routes/app_route_names.dart";
 import "package:flower_app/src/feature/auth/view/screens/auth_screen.dart";
-import "package:flower_app/src/feature/home/view/home_screen.dart";
+import "package:flower_app/src/feature/home/view/screens/home_screen.dart";
 import "package:flutter/cupertino.dart";
 import "package:go_router/go_router.dart";
 
@@ -9,7 +9,7 @@ final class RouterConfigService {
   const RouterConfigService._();
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRouteNames.auth,
+    initialLocation: AppRouteNames.home,
     routes: [
       GoRoute(
         path: AppRouteNames.auth,

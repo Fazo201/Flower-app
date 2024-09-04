@@ -9,7 +9,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const CustomScreenUtil(
-        enabledPreview: false,
+        enabledPreview: true,
         child: AppMaterialContext(),
       );
 }

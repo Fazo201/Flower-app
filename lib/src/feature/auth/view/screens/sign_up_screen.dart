@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/widget/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +20,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final nameController = TextEditingController();
   IconData iconPassword = CupertinoIcons.eye_fill;
   bool obscurePassword = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> signUp(String phoneNumber) async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async{
+        log("verificationCompleted credential: $credential");
+        final result = await _auth.signInWithCredential(credential);
+        log("result.user: ${result.user}");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        log("проверка не удалась: $e");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        log("codeSent verificationId: $verificationId");
+        log("codeSent resendToken: $resendToken");
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        log("codeAutoRetrievalTimeout verificationId: $verificationId");
+      },
+      timeout: const Duration(seconds: 60),
+    );
+  }
 
   @override
   void dispose() {
@@ -35,21 +61,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBox(
             width: context.mediaQuery.size.width * 0.9,
             child: MyTextField(
-                controller: nameController,
-                hintText: 'Name',
-                keyboardType: TextInputType.name,
-                prefixIcon: const Icon(CupertinoIcons.person_fill),
-                ),
+              controller: nameController,
+              hintText: 'Name',
+              keyboardType: TextInputType.name,
+              prefixIcon: const Icon(CupertinoIcons.person_fill),
+            ),
           ),
           10.verticalSpace,
           SizedBox(
             width: context.mediaQuery.size.width * 0.9,
             child: MyTextField(
-                controller: emailController,
-                hintText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                ),
+              controller: emailController,
+              hintText: 'Email',
+              keyboardType: TextInputType.emailAddress,
+              prefixIcon: const Icon(CupertinoIcons.mail_solid),
+            ),
           ),
           10.verticalSpace,
           SizedBox(
@@ -77,7 +103,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           20.verticalSpace,
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await signUp("+998998754899");
+            },
             style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(
                 context.theme.colorScheme.primary,

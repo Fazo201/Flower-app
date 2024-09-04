@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/widget/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +19,29 @@ class _SignInScreenState extends State<SignInScreen> {
   final emailController = TextEditingController();
 	IconData iconPassword = CupertinoIcons.eye_fill;
 	bool obscurePassword = true;
+
+
+Future<void> signInWithPhoneNumber(String phoneNumber) async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  await _auth.verifyPhoneNumber(
+    phoneNumber: phoneNumber,
+    verificationCompleted: (PhoneAuthCredential credential) async {
+      // Автоматическая проверка при доступности
+      await _auth.signInWithCredential(credential);
+    },
+    verificationFailed: (FirebaseAuthException e) {
+      log('Ошибка проверки: ${e.message}');
+    },
+    codeSent: (String verificationId, int? resendToken) {
+      log('Код отправлен: $verificationId');
+      // Сохраните verificationId для использования при вводе кода
+    },
+    codeAutoRetrievalTimeout: (String verificationId) {
+      log('Время автоизвлечения кода истекло: $verificationId');
+    },
+  );
+}
 	
   @override
   Widget build(BuildContext context) {
@@ -58,7 +84,9 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
         20.verticalSpace,
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+             signInWithPhoneNumber("+998998754899");
+          },
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(
               context.theme.colorScheme.primary,
@@ -66,7 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
             minimumSize: WidgetStatePropertyAll(Size(context.mediaQuery.size.width * 0.5, 42.h)),
           ),
           child: const Text(
-            "Sign Up",
+            "Sign In",
             style: TextStyle(
               color: Colors.white,
             ),
