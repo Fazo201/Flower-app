@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAER7EfMeFMg9yzHGyyRZ-moDMQj4JJknc',
-    appId: '1:171494864225:web:c2a9e07835b9d1141c8120',
-    messagingSenderId: '171494864225',
-    projectId: 'flower-app-dfc24',
-    authDomain: 'flower-app-dfc24.firebaseapp.com',
-    storageBucket: 'flower-app-dfc24.appspot.com',
-    measurementId: 'G-VMNVY76YYY',
+    apiKey: 'AIzaSyAT11jN_okiYIv9h8KBX3tTeQ39M2zk0AI',
+    appId: '1:543193511735:web:912ea36d5e9e2de80b0cb2',
+    messagingSenderId: '543193511735',
+    projectId: 'flower-app-f8282',
+    authDomain: 'flower-app-f8282.firebaseapp.com',
+    storageBucket: 'flower-app-f8282.appspot.com',
+    measurementId: 'G-1FGPY0S3L2',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBUzqqiOfb4WluBKmuyRl3j2OuwxDVJvgY',
-    appId: '1:171494864225:android:d61f315eaf49fe1d1c8120',
-    messagingSenderId: '171494864225',
-    projectId: 'flower-app-dfc24',
-    storageBucket: 'flower-app-dfc24.appspot.com',
+    apiKey: 'AIzaSyDF1c0RcDjq8WyF3heDY44QRdzav6eWEgE',
+    appId: '1:543193511735:android:21450a6e37926fb00b0cb2',
+    messagingSenderId: '543193511735',
+    projectId: 'flower-app-f8282',
+    storageBucket: 'flower-app-f8282.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDTJj4x_Qr0KrWiYZVy5Pr9uc4i_7AR3QI',
-    appId: '1:171494864225:ios:fa406733fb8ca7881c8120',
-    messagingSenderId: '171494864225',
-    projectId: 'flower-app-dfc24',
-    storageBucket: 'flower-app-dfc24.appspot.com',
+    apiKey: 'AIzaSyBSwIyMMf1YU7KqXCu8rzh1Txg3sfyS0xI',
+    appId: '1:543193511735:ios:adc9986bdbb2d3b90b0cb2',
+    messagingSenderId: '543193511735',
+    projectId: 'flower-app-f8282',
+    storageBucket: 'flower-app-f8282.appspot.com',
     iosBundleId: 'com.fazo.flowerApp',
   );
 }

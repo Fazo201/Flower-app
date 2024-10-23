@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "171494864225",
-    "project_id": "flower-app-dfc24",
-    "storage_bucket": "flower-app-dfc24.appspot.com"
+    "project_number": "543193511735",
+    "project_id": "flower-app-f8282",
+    "storage_bucket": "flower-app-f8282.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:171494864225:android:d61f315eaf49fe1d1c8120",
+        "mobilesdk_app_id": "1:543193511735:android:21450a6e37926fb00b0cb2",
         "android_client_info": {
           "package_name": "com.fazo.flower_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBUzqqiOfb4WluBKmuyRl3j2OuwxDVJvgY"
+          "current_key": "AIzaSyDF1c0RcDjq8WyF3heDY44QRdzav6eWEgE"
         }
       ],
       "services": {

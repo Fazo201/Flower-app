@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({super.key, required this.onPressed, required this.child, this.iconPadding});
-  final void Function() onPressed;
+  const CustomIconButton({super.key,  this.onPressed, required this.child, this.iconPadding});
+  final void Function()? onPressed;
   final Widget child;
   final EdgeInsetsGeometry? iconPadding;
 

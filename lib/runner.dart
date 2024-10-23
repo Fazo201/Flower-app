@@ -1,5 +1,5 @@
 import "dart:async";
-import "package:flower_app/app.dart";
+import "package:flower_app/src/app.dart";
 import "package:flower_app/setup.dart";
 import "package:flutter/services.dart";
 import "package:l/l.dart";

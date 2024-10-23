@@ -22,13 +22,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
 
 Future<void> signInWithPhoneNumber(String phoneNumber) async {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
-  await _auth.verifyPhoneNumber(
+  await auth.verifyPhoneNumber(
     phoneNumber: phoneNumber,
     verificationCompleted: (PhoneAuthCredential credential) async {
       // Автоматическая проверка при доступности
-      await _auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     },
     verificationFailed: (FirebaseAuthException e) {
       log('Ошибка проверки: ${e.message}');
