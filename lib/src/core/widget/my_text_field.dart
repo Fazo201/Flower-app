@@ -51,12 +51,12 @@ class MyTextField extends StatelessWidget {
         label: label,
 				suffixIcon: suffixIcon,
 				prefixIcon: prefixIcon,
-				enabledBorder: OutlineInputBorder(
-					borderRadius: BorderRadius.circular(10),
-					borderSide: const BorderSide(color: Colors.transparent),
+				enabledBorder: const OutlineInputBorder(
+					// borderRadius: BorderRadius.circular(10),
+					borderSide: BorderSide(color: Colors.transparent),
 				),
 				focusedBorder: OutlineInputBorder(
-					borderRadius: BorderRadius.circular(20),
+					// borderRadius: BorderRadius.circular(20),
 					borderSide: BorderSide(color: context.theme.colorScheme.secondary),
 				),
 				fillColor: Colors.grey.shade200,

@@ -27,7 +27,10 @@ final class AppThemes {
         colorScheme: lightColorScheme,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
+          elevation: 6,
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+          shadowColor: Color.fromARGB(255, 200, 200, 200),
         ),
       );
 

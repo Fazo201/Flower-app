@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flower_app/src/core/constants/context_extension.dart';
+import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/core/widget/custom_loading.dart';
 import 'package:flower_app/src/core/widget/my_text_field.dart';
 import 'package:flower_app/src/core/widget/utils.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
-import 'package:flower_app/src/feature/admin/bloc/admin_bloc.dart';
-import 'package:flower_app/src/core/widget/custom_appbar.dart';
+import 'package:flower_app/src/feature/admin/admin_home/bloc/admin_bloc.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,7 @@ class AdminHomeScreen extends StatefulWidget {
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final TextEditingController nameC = TextEditingController();
   final TextEditingController descriptionC = TextEditingController();
+  final TextEditingController aboutTheProductC = TextEditingController();
   final TextEditingController priceC = TextEditingController();
   final TextEditingController discountedPriceC = TextEditingController();
   final TextEditingController heightImageC = TextEditingController();
@@ -38,6 +39,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     descriptionC.text = widget.model?.description ?? "";
     priceC.text = widget.model?.price.toString() ?? "";
     discountedPriceC.text = widget.model?.discountedPrice.toString() ?? "";
+    heightImageC.text = widget.model?.size?.heigt.toString() ?? "";
+    widthImageC.text = widget.model?.size?.width.toString() ?? "";
     bloc = context.read<AdminBloc>();
     super.initState();
   }
@@ -48,6 +51,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     descriptionC.dispose();
     priceC.dispose();
     discountedPriceC.dispose();
+    heightImageC.dispose();
+    widthImageC.dispose();
     super.dispose();
   }
 
@@ -56,6 +61,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     log("Image File: ${bloc.state.file?.path}");
     if (nameC.text.isNotEmpty &&
         descriptionC.text.isNotEmpty &&
+        aboutTheProductC.text.isNotEmpty&&
         priceC.text.isNotEmpty &&
         discountedPriceC.text.isNotEmpty &&
         heightImageC.text.isNotEmpty &&
@@ -63,6 +69,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       final flowerModel = widget.model?.copyWith(
             name: nameC.text,
             description: descriptionC.text,
+            aboutTheProduct: aboutTheProductC.text,
             price: double.tryParse(priceC.text),
             discountedPrice: double.tryParse(discountedPriceC.text),
             totalPrice: double.tryParse(discountedPriceC.text),
@@ -74,6 +81,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           FlowerModel(
             name: nameC.text,
             description: descriptionC.text,
+            aboutTheProduct: aboutTheProductC.text,
             price: double.tryParse(priceC.text),
             discountedPrice: double.tryParse(discountedPriceC.text),
             totalPrice: double.tryParse(discountedPriceC.text),
@@ -109,23 +117,28 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         return Stack(
           children: [
             Scaffold(
-              appBar: CustomAppBar(
+              appBar: AppBar(
                 title: const Text("Админ"),
                 leading: CustomIconButton(
                   onPressed: () => context.pop(),
-                  child: const Icon(CupertinoIcons.arrow_left),
+                  child: const Icon(CupertinoIcons.left_chevron),
                 ),
-                action: CustomIconButton(
-                  onPressed: () {},
-                  child: Image.asset(
-                    "assets/icons/shop_active_icon.png",
-                    fit: BoxFit.cover,
+                actions: [
+                  if (widget.model != null)
+                    CustomIconButton(
+                      onPressed: () => _deleteDialog(widget.model!),
+                      child: const Icon(CupertinoIcons.delete, color: Colors.red),
+                    ),
+                  CustomIconButton(
+                    onPressed: () {
+                      context.go("${AppRouteNames.home}${AppRouteNames.adminHome}/${AppRouteNames.adminOrder}");
+                    },
+                    child: Image.asset(
+                      "assets/icons/shop_active_icon.png",
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                action2: widget.model!=null? CustomIconButton(
-                  onPressed: ()=>_deleteDialog(widget.model!),
-                  child: const Icon(CupertinoIcons.delete,color: Colors.red),
-                ):null,
+                ],
               ),
               body: Padding(
                 padding: REdgeInsets.symmetric(horizontal: context.mediaQuery.size.width * 0.03),
@@ -143,7 +156,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               width: width,
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
+                                  color: Colors.grey.shade200,
                                   image: backgroundImage(file: state.file),
                                 ),
                                 child: MaterialButton(
@@ -177,7 +190,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           Expanded(
                             flex: 2,
                             child: MyTextField(
-                                controller: widthImageC, label: const Text("Ширина"), keyboardType: TextInputType.number, maxLines: 1),
+                              controller: widthImageC,
+                              label: const Text("Ширина"),
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                            ),
                           ),
                         ],
                       ),
@@ -188,6 +205,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         keyboardType: TextInputType.text,
                         minLines: 2,
                         maxLines: 5,
+                      ),
+                      10.verticalSpace,
+                      MyTextField(
+                        controller: aboutTheProductC,
+                        label: const Text("О товаре"),
+                        keyboardType: TextInputType.text,
+                        minLines: 3,
+                        maxLines: 6,
                       ),
                       10.verticalSpace,
                       Row(

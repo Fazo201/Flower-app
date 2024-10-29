@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flower_app/src/data/entity/flower_model.dart';
+import 'package:flower_app/src/data/repository/app_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,7 +10,8 @@ part 'cart_state.dart';
 part 'cart_bloc.freezed.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(const _Initial()) {
+  AppRepo appRepo;
+  CartBloc(this.appRepo) : super(const _Initial()) {
     on<_AddToCart>(_onAddToCart);
     on<_Increment>(_onIncrement);
     on<_Decrement>(_onDecrement);
@@ -28,7 +30,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           totalPrice: existingProduct.discountedPrice! * ((existingProduct.count ?? 0) + 1),
         );
       } else {
-        newProductList.add(event.product.copyWith(count: 1,totalPrice: event.product.discountedPrice));
+        newProductList.add(event.product.copyWith(count: 1, totalPrice: event.product.discountedPrice));
       }
 
       final totalCount = newProductList.fold(0, (sum, item) => sum + (item.count ?? 0));
@@ -61,12 +63,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final newProductList = List<FlowerModel>.from(state.productList);
     final product = newProductList[event.index];
 
-    newProductList[event.index] = product.copyWith(
-      count: product.count! - 1,
-      totalPrice: product.discountedPrice! * (product.count! - 1),
-    );
+    if (product.count! > 1) {
+      newProductList[event.index] = product.copyWith(
+        count: product.count! - 1,
+        totalPrice: product.discountedPrice! * (product.count! - 1),
+      );
+    } else {
+      newProductList.removeAt(event.index);
+    }
 
     final totalCost = newProductList.fold(0.0, (sum, item) => sum + (item.totalPrice ?? 0.0));
-    emit(state.copyWith(productList: newProductList,totalCost: totalCost));
+    emit(state.copyWith(productList: newProductList, totalCost: totalCost));
   }
 }

@@ -4,9 +4,9 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
-import 'package:flower_app/src/feature/cart/bloc/cart_bloc.dart';
+import 'package:flower_app/src/feature/home/view/widgets/custom_home_top_card.dart';
+import 'package:flower_app/src/feature/user/cart/bloc/cart_bloc.dart';
 import 'package:flower_app/src/feature/home/bloc/home_bloc.dart';
-import 'package:flower_app/src/core/widget/custom_appbar.dart';
 import 'package:flower_app/src/feature/home/view/widgets/custom_home_card.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  bool sale = true;
-
   @override
   Widget build(BuildContext context) {
     return AddToCartAnimation(
@@ -72,11 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         builder: (context, state) {
           final products = state.productList;
+          final saleProducts = state.productList.where((product) => product.sale == true).toList();
           return Scaffold(
-            appBar: CustomAppBar(
-              title: const Text(
-                "+998 99 875 48 99",
-                style: TextStyle(fontSize: 16),
+            appBar: AppBar(
+              title: Text(
+                "Shabnam",
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.pink.shade800),
               ),
               leading: CustomIconButton(
                 onPressed: () async => await _navigateToAdmin(),
@@ -87,17 +86,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: context.theme.colorScheme.onSurface,
                 ),
               ),
-              action: AddToCartIcon(
-                key: cartKey,
-                icon: CustomIconButton(
-                  onPressed: () => context.go("${AppRouteNames.home}/${AppRouteNames.cart}"),
-                  child: Image.asset(
-                    "assets/icons/shop_icon.png",
-                    fit: BoxFit.cover,
+              actions: [
+                AddToCartIcon(
+                  key: cartKey,
+                  icon: CustomIconButton(
+                    onPressed: () {
+                      context.push("${AppRouteNames.home}${AppRouteNames.cart}");
+                    },
+                    padding: EdgeInsets.zero,
+                    child: Image.asset(
+                      "assets/icons/shop_icon.png",
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  badgeOptions: BadgeOptions(active: context.watch<CartBloc>().state.totalCount > 0),
                 ),
-                badgeOptions: BadgeOptions(active: context.watch<CartBloc>().state.totalCount > 0),
-              ),
+              ],
             ),
             body: products.isEmpty
                 ? Center(
@@ -115,27 +119,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     header: const WaterDropHeader(complete: Icon(Icons.gpp_good_outlined, color: Colors.green, size: 25)),
                     child: CustomScrollView(
                       slivers: [
-                        if (sale)
+                        if (saleProducts.isNotEmpty)
                           SliverToBoxAdapter(
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 220,
+                                  height: 220.h,
                                   width: double.infinity,
                                   child: PageView.builder(
                                     controller: PageController(viewportFraction: 0.9),
                                     itemBuilder: (BuildContext context, int index) {
-                                      return Container(
-                                        margin: REdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                                        height: double.infinity,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue.shade800,
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
+                                      return CustomHomeTopCard(
+                                        imageUrl: products[index].image!,
+                                        onTap: () {
+                                          context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: products[index]);
+                                        },
                                       );
                                     },
-                                    itemCount: 3,
+                                    itemCount: products.length,
                                   ),
                                 ),
                                 Divider(
@@ -165,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   discountedPrice: product.discountedPrice,
                                   // onTapCard: () => _navigateToAdmin(product),
                                   onTapCard: () {
-                                    context.go("${AppRouteNames.home}/${AppRouteNames.homeDetail}", extra: product);
+                                    context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: product);
                                   },
                                   shopOnPressed: (widgetKey) {
                                     addToCart(widgetKey, product);
@@ -192,16 +193,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _navigateToAdmin([FlowerModel? model]) async {
-    final result = await context.push("${AppRouteNames.home}/${AppRouteNames.adminHome}", extra: model);
+    final result = await context.push("${AppRouteNames.home}${AppRouteNames.adminHome}", extra: model);
     if (result == true) {
       bloc.add(const HomeEvent.getAllProducts());
     }
   }
 
-  Future<void> _navigateToCart(FlowerModel model) async {
-    final result = await context.push("${AppRouteNames.home}/${AppRouteNames.homeDetail}", extra: model);
-    if (result == true) {
-      bloc.add(const HomeEvent.getAllProducts());
-    }
-  }
+  // Future<void> _navigateToCart(FlowerModel model) async {
+  //   final result = await context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: model);
+  //   if (result == true) {
+  //     bloc.add(const HomeEvent.getAllProducts());
+  //   }
+  // }
 }

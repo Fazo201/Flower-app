@@ -17,6 +17,7 @@ class AppMaterialContext extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // theme: InheritedThemeNotifier.maybeOf(context)?.theme,
             theme: AppThemes.light(),
+            
             routerConfig: RouterConfigService.router,
           ),
         ),

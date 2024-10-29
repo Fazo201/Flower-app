@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:flower_app/src/core/widget/custom_appbar.dart';
+import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
-import 'package:flower_app/src/feature/cart/bloc/cart_bloc.dart';
-import 'package:flower_app/src/feature/cart/view/widgets/custom_cart_card.dart';
+import 'package:flower_app/src/feature/user/cart/bloc/cart_bloc.dart';
+import 'package:flower_app/src/feature/user/cart/view/widgets/custom_cart_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,37 +18,38 @@ class CartScreen extends StatelessWidget {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
+          appBar: AppBar(
             title: const Text("Корзина"),
+            elevation: 2,
             leading: CustomIconButton(
               onPressed: () => context.pop(),
-              child: const Icon(CupertinoIcons.arrow_left),
+              child: const Icon(CupertinoIcons.left_chevron),
             ),
-            action: Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: CustomIconButton(
-                onPressed: () {},
+            actions: [
+              CustomIconButton(
+                onPressed: () => context.go("${AppRouteNames.home}${AppRouteNames.cart}/${AppRouteNames.order}"),
                 child: Image.asset(
                   "assets/icons/shop_active_icon.png",
                   fit: BoxFit.cover,
                 ),
-              ),
-            ),
+              )
+            ],
           ),
           body: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
-              final products = state.productList[index];
+              final product = state.productList[index];
               return CustomCartCard(
-                discountedPrice: "${products.discountedPrice! * products.count!} сум  ",
-                price: "${products.price! * products.count!} сум",
-                unitPrice: "${products.discountedPrice} сум/шт",
-                name: products.name ?? "",
-                description: products.description ?? "",
-                imageUrl: products.image!,
-                heightImage: "Высота: ${products.size?.heigt ?? ""}",
-                widthImage: "Ширина: ${products.size?.width ?? ""}",
-                count: products.count.toString(),
-                increment: () => context.read<CartBloc>().add(CartEvent.increment(index)),
+                discountedPrice: "${product.discountedPrice! * product.count!} сум  ",
+                price: "${product.price! * product.count!} сум",
+                unitPrice: "${product.discountedPrice} сум/шт",
+                name: product.name ?? "",
+                description: product.description ?? "",
+                imageUrl: product.image!,
+                heightImage: "Высота: ${product.size?.heigt ?? ""}",
+                widthImage: "Ширина: ${product.size?.width ?? ""}",
+                count: product.count.toString(),
+                // increment: () => context.read<CartBloc>().add(CartEvent.increment(index)),
+                increment: ()=> context.read<CartBloc>().add(CartEvent.increment(index)),
                 decrement: () => context.read<CartBloc>().add(CartEvent.decrement(index)),
               );
             },
@@ -66,6 +67,7 @@ class CartScreen extends StatelessWidget {
               ),
               trailing: MaterialButton(
                 onPressed: () {},
+                height: 38.h,
                 color: Colors.blue.shade700,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

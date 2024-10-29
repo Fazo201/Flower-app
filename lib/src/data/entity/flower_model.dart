@@ -10,12 +10,14 @@ class FlowerModel {
     String? image;
     Size? size;
     String? description;
+    String? aboutTheProduct;
     double? price;
     double? totalPrice;
     double? discountedPrice;
     String? createdTime;
     int? count;
     bool? confirm;
+    bool? sale;
 
     FlowerModel({
         this.id,
@@ -23,12 +25,14 @@ class FlowerModel {
         this.image,
         this.size,
         this.description,
+        this.aboutTheProduct,
         this.price,
         this.totalPrice,
         this.discountedPrice,
         this.createdTime,
         this.count,
         this.confirm,
+        this.sale,
     });
 
     FlowerModel copyWith({
@@ -37,12 +41,14 @@ class FlowerModel {
         String? image,
         Size? size,
         String? description,
+        String? aboutTheProduct,
         double? price,
         double? totalPrice,
         double? discountedPrice,
         String? createdTime,
         int? count,
         bool? confirm,
+        bool? sale,
     }) => 
         FlowerModel(
             id: id ?? this.id,
@@ -50,12 +56,14 @@ class FlowerModel {
             image: image ?? this.image,
             size: size ?? this.size,
             description: description ?? this.description,
+            aboutTheProduct: aboutTheProduct ?? this.aboutTheProduct,
             price: price ?? this.price,
             totalPrice: totalPrice ?? this.totalPrice,
             discountedPrice: discountedPrice ?? this.discountedPrice,
             createdTime: createdTime ?? this.createdTime,
             count: count ?? this.count,
             confirm: confirm ?? this.confirm,
+            sale: sale ?? this.sale,
         );
 
     factory FlowerModel.fromJson(Map<String, dynamic> json) => FlowerModel(
@@ -64,12 +72,14 @@ class FlowerModel {
         image: json["image"],
         size: json["size"] == null ? null : Size.fromJson(json["size"]),
         description: json["description"],
+        aboutTheProduct: json["aboutTheProduct"],
         price: json["price"]?.toDouble(),
         totalPrice: json["totalPrice"]?.toDouble(),
         discountedPrice: json["discountedPrice"]?.toDouble(),
         createdTime: json["createdTime"],
         count: json["count"],
         confirm: json["confirm"],
+        sale: json["sale"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -78,12 +88,14 @@ class FlowerModel {
         "image": image,
         "size": size?.toJson(),
         "description": description,
+        "aboutTheProduct": aboutTheProduct,
         "price": price,
         "totalPrice": totalPrice,
         "discountedPrice": discountedPrice,
         "createdTime": createdTime,
         "count": count,
         "confirm": confirm,
+        "sale": sale,
     };
 }
 
