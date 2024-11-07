@@ -15,6 +15,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   AppRepo appRepo;
   AdminBloc(this.appRepo) : super(const _Initial()) {
     on<_PickFile>(_pickFile);
+    on<_DeletePickFile>(_deletePickFile);
     on<_AddNewProduct>(_addNewProduct);
     on<_UpdateProduct>(_updateProduct);
     on<_DeleteProduct>(_onDeleteProduct);
@@ -38,20 +39,25 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     }
   }
 
+  Future<void> _deletePickFile(_DeletePickFile event, Emitter<AdminState> emit) async {
+    log("_deletePickFile");
+    emit(state.copyWith(file: null));
+  }
+
   Future<void> _addNewProduct(_AddNewProduct event, Emitter<AdminState> emit) async {
     log("_addNewProduct");
     try {
       if (state.file != null) {
         emit(state.copyWith(isLoading: true));
         await appRepo.addData(event.product, state.file!);
-        emit(state.copyWith(file: null, error: null));
+        add(const _DeletePickFile());
       }else{
         emit(state.copyWith(error: "Пожалуйста, сначала выберите изображение"));
       }
     } catch (e) {
       emit(state.copyWith(error: "Этот продукт не добавлен $e"));
     }finally{
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, error: null));
     }
   }
 
@@ -60,11 +66,11 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     try {
       emit(state.copyWith(isLoading: true));
       await appRepo.updateData(event.product,state.file);
-      emit(state.copyWith(file: null, error: null));
+      add(const _DeletePickFile());
     } catch (e) {
       emit(state.copyWith(error: "Этот продукт не обновлен $e"));
     }finally{
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, error: null));
     }
   }
 
@@ -73,11 +79,11 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     try {
       emit(state.copyWith(isLoading: true));
       await appRepo.deleteData(event.product);
-      emit(state.copyWith(file: null, error: null));
+      add(const _DeletePickFile());
     } catch (e) {
       emit(state.copyWith(error: "Этот продукт не удален $e"));
     }finally{
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, error: null));
     }
   }
 }

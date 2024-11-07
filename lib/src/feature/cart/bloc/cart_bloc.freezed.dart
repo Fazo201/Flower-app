@@ -19,50 +19,56 @@ mixin _$CartEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
     required TResult Function(int index) increment,
     required TResult Function(int index) decrement,
-    required TResult Function() addToOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
     TResult? Function(int index)? increment,
     TResult? Function(int index)? decrement,
-    TResult? Function()? addToOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
     TResult Function(int index)? increment,
     TResult Function(int index)? decrement,
-    TResult Function()? addToOrder,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
     required TResult Function(_Increment value) increment,
     required TResult Function(_Decrement value) decrement,
-    required TResult Function(_AddToOrder value) addToOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
     TResult? Function(_Increment value)? increment,
     TResult? Function(_Decrement value)? decrement,
-    TResult? Function(_AddToOrder value)? addToOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
     TResult Function(_Increment value)? increment,
     TResult Function(_Decrement value)? decrement,
-    TResult Function(_AddToOrder value)? addToOrder,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -157,9 +163,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
     required TResult Function(int index) increment,
     required TResult Function(int index) decrement,
-    required TResult Function() addToOrder,
   }) {
     return addToCart(product);
   }
@@ -168,9 +175,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
     TResult? Function(int index)? increment,
     TResult? Function(int index)? decrement,
-    TResult? Function()? addToOrder,
   }) {
     return addToCart?.call(product);
   }
@@ -179,9 +187,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
     TResult Function(int index)? increment,
     TResult Function(int index)? decrement,
-    TResult Function()? addToOrder,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -194,9 +203,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
     required TResult Function(_Increment value) increment,
     required TResult Function(_Decrement value) decrement,
-    required TResult Function(_AddToOrder value) addToOrder,
   }) {
     return addToCart(this);
   }
@@ -205,9 +215,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
     TResult? Function(_Increment value)? increment,
     TResult? Function(_Decrement value)? decrement,
-    TResult? Function(_AddToOrder value)? addToOrder,
   }) {
     return addToCart?.call(this);
   }
@@ -216,9 +227,10 @@ class _$AddToCartImpl implements _AddToCart {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
     TResult Function(_Increment value)? increment,
     TResult Function(_Decrement value)? decrement,
-    TResult Function(_AddToOrder value)? addToOrder,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -238,6 +250,287 @@ abstract class _AddToCart implements CartEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddToCartImplCopyWith<_$AddToCartImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveCardImplCopyWith<$Res> {
+  factory _$$RemoveCardImplCopyWith(
+          _$RemoveCardImpl value, $Res Function(_$RemoveCardImpl) then) =
+      __$$RemoveCardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$RemoveCardImplCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$RemoveCardImpl>
+    implements _$$RemoveCardImplCopyWith<$Res> {
+  __$$RemoveCardImplCopyWithImpl(
+      _$RemoveCardImpl _value, $Res Function(_$RemoveCardImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CartEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$RemoveCardImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveCardImpl implements _RemoveCard {
+  const _$RemoveCardImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'CartEvent.removeCard(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveCardImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  /// Create a copy of CartEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveCardImplCopyWith<_$RemoveCardImpl> get copyWith =>
+      __$$RemoveCardImplCopyWithImpl<_$RemoveCardImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
+    required TResult Function(int index) increment,
+    required TResult Function(int index) decrement,
+  }) {
+    return removeCard(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
+    TResult? Function(int index)? increment,
+    TResult? Function(int index)? decrement,
+  }) {
+    return removeCard?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
+    TResult Function(int index)? increment,
+    TResult Function(int index)? decrement,
+    required TResult orElse(),
+  }) {
+    if (removeCard != null) {
+      return removeCard(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
+    required TResult Function(_Increment value) increment,
+    required TResult Function(_Decrement value) decrement,
+  }) {
+    return removeCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
+    TResult? Function(_Increment value)? increment,
+    TResult? Function(_Decrement value)? decrement,
+  }) {
+    return removeCard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
+    TResult Function(_Increment value)? increment,
+    TResult Function(_Decrement value)? decrement,
+    required TResult orElse(),
+  }) {
+    if (removeCard != null) {
+      return removeCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveCard implements CartEvent {
+  const factory _RemoveCard(final int index) = _$RemoveCardImpl;
+
+  int get index;
+
+  /// Create a copy of CartEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RemoveCardImplCopyWith<_$RemoveCardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearAllCardsImplCopyWith<$Res> {
+  factory _$$ClearAllCardsImplCopyWith(
+          _$ClearAllCardsImpl value, $Res Function(_$ClearAllCardsImpl) then) =
+      __$$ClearAllCardsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearAllCardsImplCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$ClearAllCardsImpl>
+    implements _$$ClearAllCardsImplCopyWith<$Res> {
+  __$$ClearAllCardsImplCopyWithImpl(
+      _$ClearAllCardsImpl _value, $Res Function(_$ClearAllCardsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CartEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ClearAllCardsImpl implements _ClearAllCards {
+  const _$ClearAllCardsImpl();
+
+  @override
+  String toString() {
+    return 'CartEvent.clearAllCards()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearAllCardsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
+    required TResult Function(int index) increment,
+    required TResult Function(int index) decrement,
+  }) {
+    return clearAllCards();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
+    TResult? Function(int index)? increment,
+    TResult? Function(int index)? decrement,
+  }) {
+    return clearAllCards?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
+    TResult Function(int index)? increment,
+    TResult Function(int index)? decrement,
+    required TResult orElse(),
+  }) {
+    if (clearAllCards != null) {
+      return clearAllCards();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
+    required TResult Function(_Increment value) increment,
+    required TResult Function(_Decrement value) decrement,
+  }) {
+    return clearAllCards(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
+    TResult? Function(_Increment value)? increment,
+    TResult? Function(_Decrement value)? decrement,
+  }) {
+    return clearAllCards?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
+    TResult Function(_Increment value)? increment,
+    TResult Function(_Decrement value)? decrement,
+    required TResult orElse(),
+  }) {
+    if (clearAllCards != null) {
+      return clearAllCards(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearAllCards implements CartEvent {
+  const factory _ClearAllCards() = _$ClearAllCardsImpl;
 }
 
 /// @nodoc
@@ -309,9 +602,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
     required TResult Function(int index) increment,
     required TResult Function(int index) decrement,
-    required TResult Function() addToOrder,
   }) {
     return increment(index);
   }
@@ -320,9 +614,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
     TResult? Function(int index)? increment,
     TResult? Function(int index)? decrement,
-    TResult? Function()? addToOrder,
   }) {
     return increment?.call(index);
   }
@@ -331,9 +626,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
     TResult Function(int index)? increment,
     TResult Function(int index)? decrement,
-    TResult Function()? addToOrder,
     required TResult orElse(),
   }) {
     if (increment != null) {
@@ -346,9 +642,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
     required TResult Function(_Increment value) increment,
     required TResult Function(_Decrement value) decrement,
-    required TResult Function(_AddToOrder value) addToOrder,
   }) {
     return increment(this);
   }
@@ -357,9 +654,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
     TResult? Function(_Increment value)? increment,
     TResult? Function(_Decrement value)? decrement,
-    TResult? Function(_AddToOrder value)? addToOrder,
   }) {
     return increment?.call(this);
   }
@@ -368,9 +666,10 @@ class _$IncrementImpl implements _Increment {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
     TResult Function(_Increment value)? increment,
     TResult Function(_Decrement value)? decrement,
-    TResult Function(_AddToOrder value)? addToOrder,
     required TResult orElse(),
   }) {
     if (increment != null) {
@@ -461,9 +760,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FlowerModel product) addToCart,
+    required TResult Function(int index) removeCard,
+    required TResult Function() clearAllCards,
     required TResult Function(int index) increment,
     required TResult Function(int index) decrement,
-    required TResult Function() addToOrder,
   }) {
     return decrement(index);
   }
@@ -472,9 +772,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FlowerModel product)? addToCart,
+    TResult? Function(int index)? removeCard,
+    TResult? Function()? clearAllCards,
     TResult? Function(int index)? increment,
     TResult? Function(int index)? decrement,
-    TResult? Function()? addToOrder,
   }) {
     return decrement?.call(index);
   }
@@ -483,9 +784,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FlowerModel product)? addToCart,
+    TResult Function(int index)? removeCard,
+    TResult Function()? clearAllCards,
     TResult Function(int index)? increment,
     TResult Function(int index)? decrement,
-    TResult Function()? addToOrder,
     required TResult orElse(),
   }) {
     if (decrement != null) {
@@ -498,9 +800,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_RemoveCard value) removeCard,
+    required TResult Function(_ClearAllCards value) clearAllCards,
     required TResult Function(_Increment value) increment,
     required TResult Function(_Decrement value) decrement,
-    required TResult Function(_AddToOrder value) addToOrder,
   }) {
     return decrement(this);
   }
@@ -509,9 +812,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_RemoveCard value)? removeCard,
+    TResult? Function(_ClearAllCards value)? clearAllCards,
     TResult? Function(_Increment value)? increment,
     TResult? Function(_Decrement value)? decrement,
-    TResult? Function(_AddToOrder value)? addToOrder,
   }) {
     return decrement?.call(this);
   }
@@ -520,9 +824,10 @@ class _$DecrementImpl implements _Decrement {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_RemoveCard value)? removeCard,
+    TResult Function(_ClearAllCards value)? clearAllCards,
     TResult Function(_Increment value)? increment,
     TResult Function(_Decrement value)? decrement,
-    TResult Function(_AddToOrder value)? addToOrder,
     required TResult orElse(),
   }) {
     if (decrement != null) {
@@ -545,146 +850,30 @@ abstract class _Decrement implements CartEvent {
 }
 
 /// @nodoc
-abstract class _$$AddToOrderImplCopyWith<$Res> {
-  factory _$$AddToOrderImplCopyWith(
-          _$AddToOrderImpl value, $Res Function(_$AddToOrderImpl) then) =
-      __$$AddToOrderImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AddToOrderImplCopyWithImpl<$Res>
-    extends _$CartEventCopyWithImpl<$Res, _$AddToOrderImpl>
-    implements _$$AddToOrderImplCopyWith<$Res> {
-  __$$AddToOrderImplCopyWithImpl(
-      _$AddToOrderImpl _value, $Res Function(_$AddToOrderImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CartEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$AddToOrderImpl implements _AddToOrder {
-  const _$AddToOrderImpl();
-
-  @override
-  String toString() {
-    return 'CartEvent.addToOrder()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AddToOrderImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(FlowerModel product) addToCart,
-    required TResult Function(int index) increment,
-    required TResult Function(int index) decrement,
-    required TResult Function() addToOrder,
-  }) {
-    return addToOrder();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FlowerModel product)? addToCart,
-    TResult? Function(int index)? increment,
-    TResult? Function(int index)? decrement,
-    TResult? Function()? addToOrder,
-  }) {
-    return addToOrder?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FlowerModel product)? addToCart,
-    TResult Function(int index)? increment,
-    TResult Function(int index)? decrement,
-    TResult Function()? addToOrder,
-    required TResult orElse(),
-  }) {
-    if (addToOrder != null) {
-      return addToOrder();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_AddToCart value) addToCart,
-    required TResult Function(_Increment value) increment,
-    required TResult Function(_Decrement value) decrement,
-    required TResult Function(_AddToOrder value) addToOrder,
-  }) {
-    return addToOrder(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddToCart value)? addToCart,
-    TResult? Function(_Increment value)? increment,
-    TResult? Function(_Decrement value)? decrement,
-    TResult? Function(_AddToOrder value)? addToOrder,
-  }) {
-    return addToOrder?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddToCart value)? addToCart,
-    TResult Function(_Increment value)? increment,
-    TResult Function(_Decrement value)? decrement,
-    TResult Function(_AddToOrder value)? addToOrder,
-    required TResult orElse(),
-  }) {
-    if (addToOrder != null) {
-      return addToOrder(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _AddToOrder implements CartEvent {
-  const factory _AddToOrder() = _$AddToOrderImpl;
-}
-
-/// @nodoc
 mixin _$CartState {
   List<FlowerModel> get productList => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
   double get totalCost => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)
+            double totalCost, bool isLoading, String? error)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)?
+            double totalCost, bool isLoading, String? error)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)?
+            double totalCost, bool isLoading, String? error)?
         initial,
     required TResult orElse(),
   }) =>
@@ -722,7 +911,8 @@ abstract class $CartStateCopyWith<$Res> {
       {List<FlowerModel> productList,
       int totalCount,
       double totalCost,
-      bool isLoading});
+      bool isLoading,
+      String? error});
 }
 
 /// @nodoc
@@ -744,6 +934,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
     Object? totalCount = null,
     Object? totalCost = null,
     Object? isLoading = null,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       productList: null == productList
@@ -762,6 +953,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -778,7 +973,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       {List<FlowerModel> productList,
       int totalCount,
       double totalCost,
-      bool isLoading});
+      bool isLoading,
+      String? error});
 }
 
 /// @nodoc
@@ -798,6 +994,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? totalCount = null,
     Object? totalCost = null,
     Object? isLoading = null,
+    Object? error = freezed,
   }) {
     return _then(_$InitialImpl(
       productList: null == productList
@@ -816,6 +1013,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -827,7 +1028,8 @@ class _$InitialImpl implements _Initial {
       {final List<FlowerModel> productList = const [],
       this.totalCount = 0,
       this.totalCost = 0,
-      this.isLoading = false})
+      this.isLoading = false,
+      this.error})
       : _productList = productList;
 
   final List<FlowerModel> _productList;
@@ -848,10 +1050,12 @@ class _$InitialImpl implements _Initial {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  final String? error;
 
   @override
   String toString() {
-    return 'CartState.initial(productList: $productList, totalCount: $totalCount, totalCost: $totalCost, isLoading: $isLoading)';
+    return 'CartState.initial(productList: $productList, totalCount: $totalCount, totalCost: $totalCost, isLoading: $isLoading, error: $error)';
   }
 
   @override
@@ -866,7 +1070,8 @@ class _$InitialImpl implements _Initial {
             (identical(other.totalCost, totalCost) ||
                 other.totalCost == totalCost) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
@@ -875,7 +1080,8 @@ class _$InitialImpl implements _Initial {
       const DeepCollectionEquality().hash(_productList),
       totalCount,
       totalCost,
-      isLoading);
+      isLoading,
+      error);
 
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.
@@ -889,32 +1095,32 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)
+            double totalCost, bool isLoading, String? error)
         initial,
   }) {
-    return initial(productList, totalCount, totalCost, isLoading);
+    return initial(productList, totalCount, totalCost, isLoading, error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)?
+            double totalCost, bool isLoading, String? error)?
         initial,
   }) {
-    return initial?.call(productList, totalCount, totalCost, isLoading);
+    return initial?.call(productList, totalCount, totalCost, isLoading, error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading)?
+            double totalCost, bool isLoading, String? error)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(productList, totalCount, totalCost, isLoading);
+      return initial(productList, totalCount, totalCost, isLoading, error);
     }
     return orElse();
   }
@@ -953,7 +1159,8 @@ abstract class _Initial implements CartState {
       {final List<FlowerModel> productList,
       final int totalCount,
       final double totalCost,
-      final bool isLoading}) = _$InitialImpl;
+      final bool isLoading,
+      final String? error}) = _$InitialImpl;
 
   @override
   List<FlowerModel> get productList;
@@ -963,6 +1170,8 @@ abstract class _Initial implements CartState {
   double get totalCost;
   @override
   bool get isLoading;
+  @override
+  String? get error;
 
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.

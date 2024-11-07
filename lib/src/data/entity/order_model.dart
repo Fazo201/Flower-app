@@ -1,136 +1,77 @@
+// To parse this JSON data, do
+//
+//     final orderModel = orderModelFromJson(jsonString);
+
 import 'dart:convert';
+
+import 'package:flower_app/src/data/entity/flower_model.dart';
 
 OrderModel orderModelFromJson(String str) => OrderModel.fromJson(json.decode(str));
 
 String orderModelToJson(OrderModel data) => json.encode(data.toJson());
 
 class OrderModel {
+    String? id;
     String? name;
     String? phoneNumber;
+    String? registrationDate;
+    bool? confirm;
+    int? totalCount;
+    double? totalCost;
     List<FlowerModel>? flowerModel;
 
     OrderModel({
+        this.id,
         this.name,
         this.phoneNumber,
+        this.registrationDate,
+        this.confirm,
+        this.totalCount,
+        this.totalCost,
         this.flowerModel,
     });
 
     OrderModel copyWith({
+        String? id,
         String? name,
         String? phoneNumber,
+        String? registrationDate,
+        bool? confirm,
+        int? totalCount,
+        double? totalCost,
         List<FlowerModel>? flowerModel,
     }) => 
         OrderModel(
+            id: id ?? this.id,
             name: name ?? this.name,
             phoneNumber: phoneNumber ?? this.phoneNumber,
+            registrationDate: registrationDate ?? this.registrationDate,
+            confirm: confirm ?? this.confirm,
+            totalCount: totalCount ?? this.totalCount,
+            totalCost: totalCost ?? this.totalCost,
             flowerModel: flowerModel ?? this.flowerModel,
         );
 
     factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
-        name: json["name"],
-        phoneNumber: json["phoneNumber"],
-        flowerModel: json["flowerModel"] == null ? [] : List<FlowerModel>.from(json["flowerModel"]!.map((x) => FlowerModel.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "name": name,
-        "phoneNumber": phoneNumber,
-        "flowerModel": flowerModel == null ? [] : List<dynamic>.from(flowerModel!.map((x) => x.toJson())),
-    };
-}
-
-class FlowerModel {
-    String? id;
-    String? name;
-    String? image;
-    Size? size;
-    String? description;
-    String? aboutTheProduct;
-    double? price;
-    double? totalPrice;
-    double? discountedPrice;
-    String? createdTime;
-    int? count;
-    bool? confirm;
-    bool? sale;
-
-    FlowerModel({
-        this.id,
-        this.name,
-        this.image,
-        this.size,
-        this.description,
-        this.aboutTheProduct,
-        this.price,
-        this.totalPrice,
-        this.discountedPrice,
-        this.createdTime,
-        this.count,
-        this.confirm,
-        this.sale,
-    });
-
-    FlowerModel copyWith({
-        String? id,
-        String? name,
-        String? image,
-        Size? size,
-        String? description,
-        String? aboutTheProduct,
-        double? price,
-        double? totalPrice,
-        double? discountedPrice,
-        String? createdTime,
-        int? count,
-        bool? confirm,
-        bool? sale,
-    }) => 
-        FlowerModel(
-            id: id ?? this.id,
-            name: name ?? this.name,
-            image: image ?? this.image,
-            size: size ?? this.size,
-            description: description ?? this.description,
-            aboutTheProduct: aboutTheProduct ?? this.aboutTheProduct,
-            price: price ?? this.price,
-            totalPrice: totalPrice ?? this.totalPrice,
-            discountedPrice: discountedPrice ?? this.discountedPrice,
-            createdTime: createdTime ?? this.createdTime,
-            count: count ?? this.count,
-            confirm: confirm ?? this.confirm,
-            sale: sale ?? this.sale,
-        );
-
-    factory FlowerModel.fromJson(Map<String, dynamic> json) => FlowerModel(
         id: json["id"],
         name: json["name"],
-        image: json["image"],
-        size: json["size"] == null ? null : Size.fromJson(json["size"]),
-        description: json["description"],
-        aboutTheProduct: json["aboutTheProduct"],
-        price: json["price"]?.toDouble(),
-        totalPrice: json["totalPrice"]?.toDouble(),
-        discountedPrice: json["discountedPrice"]?.toDouble(),
-        createdTime: json["createdTime"],
-        count: json["count"],
+        phoneNumber: json["phoneNumber"],
+        registrationDate: json["registrationDate"],
         confirm: json["confirm"],
-        sale: json["sale"],
+        totalCount: json["totalCount"],
+        totalCost: json["totalCost"]?.toDouble(),
+        flowerModel: json["flowerModel"] == null ? [] : List<FlowerModel>.from(json["flowerModel"]!.map((x) => FlowerModel.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "image": image,
-        "size": size?.toJson(),
-        "description": description,
-        "aboutTheProduct": aboutTheProduct,
-        "price": price,
-        "totalPrice": totalPrice,
-        "discountedPrice": discountedPrice,
-        "createdTime": createdTime,
-        "count": count,
+        "phoneNumber": phoneNumber,
+        "registrationDate": registrationDate,
         "confirm": confirm,
-        "sale": sale,
+        "totalCount": totalCount,
+        "totalCost": totalCost,
+        "flowerModel": flowerModel == null ? [] : List<dynamic>.from(flowerModel!.map((x) => x.toJson())),
     };
 }
 

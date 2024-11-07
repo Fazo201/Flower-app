@@ -4,7 +4,7 @@ import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
-import 'package:flower_app/src/feature/user/cart/bloc/cart_bloc.dart';
+import 'package:flower_app/src/feature/cart/bloc/cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,17 +14,17 @@ import 'package:go_router/go_router.dart';
 class HomeDetailScreen extends StatelessWidget {
   const HomeDetailScreen({super.key, this.model});
   final FlowerModel? model;
+  
   @override
   Widget build(BuildContext context) {
-    log(model!.count.toString());
+    log("BUILD HomeDetailScreen");
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        final isCart = state.productList.any((product)=>product.id==model?.id);
-        log(isCart.toString());
+        final isInCart = state.productList.any((product)=>product.id==model?.id);
         return Scaffold(
           appBar: AppBar(
             leading: CustomIconButton(
-              onPressed: () => context.pop(),
+              onPressed: () => context.pop(true),
               child: const Icon(CupertinoIcons.left_chevron),
             ),
           ),
@@ -47,7 +47,7 @@ class HomeDetailScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               image: DecorationImage(
-                                image: model?.image != null ? NetworkImage(model!.image!) : const AssetImage("assets/images/no_image.png"),
+                                image: model?.image != null ? NetworkImage(model!.image!) : const AssetImage("assets/icons/flower_icon.png"),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -66,12 +66,12 @@ class HomeDetailScreen extends StatelessWidget {
                   18.verticalSpace,
                   Text(
                     "О товаре",
-                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
                   10.verticalSpace,
                   Text(model?.aboutTheProduct ?? ""),
-                  Text("Высота: ${model?.size?.heigt ?? ""}"),
-                  Text("Ширина: ${model?.size?.width ?? ""}"),
+                  Text("Высота: ${model?.size?.heigt ?? ""} см"),
+                  Text("Ширина: ${model?.size?.width ?? ""} см"),
                   20.verticalSpace,
                 ],
               ),
@@ -90,27 +90,29 @@ class HomeDetailScreen extends StatelessWidget {
               ),
               trailing: MaterialButton(
                 onPressed: () {
-                  if (isCart) {
-                    context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}/${AppRouteNames.cart}");
+                  if (isInCart) {
+                    context.push("/${AppRouteNames.homeDetail}/${AppRouteNames.cart}");
                   }else{
                     context.read<CartBloc>().add(CartEvent.addToCart(model!));
                   }
                 },
-                color: (!isCart) ? Colors.blue.shade700:null,
-                height: 48.h,
+                color: (!isInCart) ? Colors.blue.shade700:null,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: (isCart) ? const BorderSide(): BorderSide.none
+                  side: (isInCart) ? const BorderSide(): BorderSide.none
                 ),
-                child: isCart ? const Column(
+                child: isInCart ? const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.shopping_bag_outlined),
                     Text("Перейти"),
                   ],
-                ):const Text(
-                  "В корзину",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ):const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "В корзину",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               ),
             ),

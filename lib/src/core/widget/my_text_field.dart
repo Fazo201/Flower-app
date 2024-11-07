@@ -7,6 +7,7 @@ class MyTextField extends StatelessWidget {
   final Widget? label;
   final bool? obscureText;
 	final TextInputType keyboardType;
+  final TextInputAction? textInputAction;
 	final Widget? suffixIcon;
 	final VoidCallback? onTap;
 	final Widget? prefixIcon;
@@ -23,15 +24,16 @@ class MyTextField extends StatelessWidget {
     this.hintText,
     this.obscureText,
 		required this.keyboardType,
+    this.textInputAction = TextInputAction.next,
 		this.suffixIcon,
 		this.onTap,
     this.minLines,
-    this.maxLines,
+    this.maxLines = 1,
 		this.prefixIcon,
 		this.validator,
 		this.focusNode,
 		this.errorMsg,
-		this.onChanged, this.label
+		this.onChanged, this.label,
   });
 	
 	@override
@@ -43,7 +45,7 @@ class MyTextField extends StatelessWidget {
 			keyboardType: keyboardType,
 			focusNode: focusNode,
 			onTap: onTap,
-			textInputAction: TextInputAction.next,
+			textInputAction: textInputAction,
 			onChanged: onChanged,
       minLines: minLines,
       maxLines: maxLines,

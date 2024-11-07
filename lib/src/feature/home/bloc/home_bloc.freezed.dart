@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeEvent {
+  bool? get isRefresh => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllProducts,
+    required TResult Function(bool? isRefresh) getAllProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllProducts,
+    TResult? Function(bool? isRefresh)? getAllProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllProducts,
+    TResult Function(bool? isRefresh)? getAllProducts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,12 +49,20 @@ mixin _$HomeEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HomeEventCopyWith<HomeEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HomeEventCopyWith<$Res> {
   factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
       _$HomeEventCopyWithImpl<$Res, HomeEvent>;
+  @useResult
+  $Res call({bool? isRefresh});
 }
 
 /// @nodoc
@@ -68,13 +77,29 @@ class _$HomeEventCopyWithImpl<$Res, $Val extends HomeEvent>
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isRefresh = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isRefresh: freezed == isRefresh
+          ? _value.isRefresh
+          : isRefresh // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetAllProductsImplCopyWith<$Res> {
+abstract class _$$GetAllProductsImplCopyWith<$Res>
+    implements $HomeEventCopyWith<$Res> {
   factory _$$GetAllProductsImplCopyWith(_$GetAllProductsImpl value,
           $Res Function(_$GetAllProductsImpl) then) =
       __$$GetAllProductsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool? isRefresh});
 }
 
 /// @nodoc
@@ -87,51 +112,78 @@ class __$$GetAllProductsImplCopyWithImpl<$Res>
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isRefresh = freezed,
+  }) {
+    return _then(_$GetAllProductsImpl(
+      isRefresh: freezed == isRefresh
+          ? _value.isRefresh
+          : isRefresh // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetAllProductsImpl implements _GetAllProducts {
-  const _$GetAllProductsImpl();
+  const _$GetAllProductsImpl({this.isRefresh});
+
+  @override
+  final bool? isRefresh;
 
   @override
   String toString() {
-    return 'HomeEvent.getAllProducts()';
+    return 'HomeEvent.getAllProducts(isRefresh: $isRefresh)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllProductsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllProductsImpl &&
+            (identical(other.isRefresh, isRefresh) ||
+                other.isRefresh == isRefresh));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isRefresh);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllProductsImplCopyWith<_$GetAllProductsImpl> get copyWith =>
+      __$$GetAllProductsImplCopyWithImpl<_$GetAllProductsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllProducts,
+    required TResult Function(bool? isRefresh) getAllProducts,
   }) {
-    return getAllProducts();
+    return getAllProducts(isRefresh);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllProducts,
+    TResult? Function(bool? isRefresh)? getAllProducts,
   }) {
-    return getAllProducts?.call();
+    return getAllProducts?.call(isRefresh);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllProducts,
+    TResult Function(bool? isRefresh)? getAllProducts,
     required TResult orElse(),
   }) {
     if (getAllProducts != null) {
-      return getAllProducts();
+      return getAllProducts(isRefresh);
     }
     return orElse();
   }
@@ -166,29 +218,44 @@ class _$GetAllProductsImpl implements _GetAllProducts {
 }
 
 abstract class _GetAllProducts implements HomeEvent {
-  const factory _GetAllProducts() = _$GetAllProductsImpl;
+  const factory _GetAllProducts({final bool? isRefresh}) = _$GetAllProductsImpl;
+
+  @override
+  bool? get isRefresh;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetAllProductsImplCopyWith<_$GetAllProductsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$HomeState {
-  List<FlowerModel> get productList =>
-      throw _privateConstructorUsedError; // @Default([]) List<FlowerModel> cartList,
-// @Default(0) int cartItemCount,
+  List<FlowerModel> get productList => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  bool? get isRefreshCompleted => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, bool isLoading)
+    required TResult Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, bool isLoading)? initial,
+    TResult? Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)?
+        initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, bool isLoading)? initial,
+    TResult Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)?
+        initial,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -221,7 +288,11 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({List<FlowerModel> productList, bool isLoading});
+  $Res call(
+      {List<FlowerModel> productList,
+      bool isLoading,
+      String? error,
+      bool? isRefreshCompleted});
 }
 
 /// @nodoc
@@ -241,6 +312,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? productList = null,
     Object? isLoading = null,
+    Object? error = freezed,
+    Object? isRefreshCompleted = freezed,
   }) {
     return _then(_value.copyWith(
       productList: null == productList
@@ -251,6 +324,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isRefreshCompleted: freezed == isRefreshCompleted
+          ? _value.isRefreshCompleted
+          : isRefreshCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -263,7 +344,11 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<FlowerModel> productList, bool isLoading});
+  $Res call(
+      {List<FlowerModel> productList,
+      bool isLoading,
+      String? error,
+      bool? isRefreshCompleted});
 }
 
 /// @nodoc
@@ -281,6 +366,8 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? productList = null,
     Object? isLoading = null,
+    Object? error = freezed,
+    Object? isRefreshCompleted = freezed,
   }) {
     return _then(_$InitialImpl(
       productList: null == productList
@@ -291,6 +378,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isRefreshCompleted: freezed == isRefreshCompleted
+          ? _value.isRefreshCompleted
+          : isRefreshCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -299,7 +394,10 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<FlowerModel> productList = const [], this.isLoading = false})
+      {final List<FlowerModel> productList = const [],
+      this.isLoading = false,
+      this.error,
+      this.isRefreshCompleted})
       : _productList = productList;
 
   final List<FlowerModel> _productList;
@@ -311,15 +409,17 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(_productList);
   }
 
-// @Default([]) List<FlowerModel> cartList,
-// @Default(0) int cartItemCount,
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  final String? error;
+  @override
+  final bool? isRefreshCompleted;
 
   @override
   String toString() {
-    return 'HomeState.initial(productList: $productList, isLoading: $isLoading)';
+    return 'HomeState.initial(productList: $productList, isLoading: $isLoading, error: $error, isRefreshCompleted: $isRefreshCompleted)';
   }
 
   @override
@@ -330,12 +430,19 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._productList, _productList) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.isRefreshCompleted, isRefreshCompleted) ||
+                other.isRefreshCompleted == isRefreshCompleted));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_productList), isLoading);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_productList),
+      isLoading,
+      error,
+      isRefreshCompleted);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -348,28 +455,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, bool isLoading)
+    required TResult Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)
         initial,
   }) {
-    return initial(productList, isLoading);
+    return initial(productList, isLoading, error, isRefreshCompleted);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, bool isLoading)? initial,
+    TResult? Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)?
+        initial,
   }) {
-    return initial?.call(productList, isLoading);
+    return initial?.call(productList, isLoading, error, isRefreshCompleted);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, bool isLoading)? initial,
+    TResult Function(List<FlowerModel> productList, bool isLoading,
+            String? error, bool? isRefreshCompleted)?
+        initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(productList, isLoading);
+      return initial(productList, isLoading, error, isRefreshCompleted);
     }
     return orElse();
   }
@@ -406,13 +518,18 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements HomeState {
   const factory _Initial(
       {final List<FlowerModel> productList,
-      final bool isLoading}) = _$InitialImpl;
+      final bool isLoading,
+      final String? error,
+      final bool? isRefreshCompleted}) = _$InitialImpl;
 
   @override
-  List<FlowerModel> get productList; // @Default([]) List<FlowerModel> cartList,
-// @Default(0) int cartItemCount,
+  List<FlowerModel> get productList;
   @override
   bool get isLoading;
+  @override
+  String? get error;
+  @override
+  bool? get isRefreshCompleted;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.

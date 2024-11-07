@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flower_app/src/core/constants/context_extension.dart';
-import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/core/widget/custom_loading.dart';
 import 'package:flower_app/src/core/widget/my_text_field.dart';
 import 'package:flower_app/src/core/widget/utils.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
 import 'package:flower_app/src/feature/admin/admin_home/bloc/admin_bloc.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
+import 'package:flower_app/src/feature/home/view/widgets/custom_home_top_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +34,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   void initState() {
-    log("initState AdminHomeScreen \nMODEL: ${widget.model}");
+    log("initState AdminHomeScreen");
     nameC.text = widget.model?.name ?? "";
     descriptionC.text = widget.model?.description ?? "";
+    aboutTheProductC.text = widget.model?.aboutTheProduct ?? "";
     priceC.text = widget.model?.price.toString() ?? "";
     discountedPriceC.text = widget.model?.discountedPrice.toString() ?? "";
     heightImageC.text = widget.model?.size?.heigt.toString() ?? "";
@@ -47,8 +48,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   void dispose() {
+    bloc.add(const AdminEvent.deletePickFile());
     nameC.dispose();
     descriptionC.dispose();
+    aboutTheProductC.dispose();
     priceC.dispose();
     discountedPriceC.dispose();
     heightImageC.dispose();
@@ -61,7 +64,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     log("Image File: ${bloc.state.file?.path}");
     if (nameC.text.isNotEmpty &&
         descriptionC.text.isNotEmpty &&
-        aboutTheProductC.text.isNotEmpty&&
+        aboutTheProductC.text.isNotEmpty &&
         priceC.text.isNotEmpty &&
         discountedPriceC.text.isNotEmpty &&
         heightImageC.text.isNotEmpty &&
@@ -77,6 +80,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               heigt: double.tryParse(heightImageC.text),
               width: double.tryParse(widthImageC.text),
             ),
+            createdTime: DateTime.now().toIso8601String(),
           ) ??
           FlowerModel(
             name: nameC.text,
@@ -89,6 +93,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               heigt: double.tryParse(heightImageC.text),
               width: double.tryParse(widthImageC.text),
             ),
+            createdTime: DateTime.now().toIso8601String(),
           );
       if (widget.model == null && bloc.state.file != null) {
         bloc.add(AdminEvent.addNewProduct(flowerModel));
@@ -102,10 +107,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("BUILD AdminHomeScreen");
     return BlocConsumer<AdminBloc, AdminState>(
       bloc: bloc,
       listener: (context, state) {
-        log("LISTENER");
+        log("LISTENER AdminHomeScreen");
         if (state.error != null) {
           Utils.fireSnackBar(context, "${state.error}\n${DateTime.now().toLocal()}", backgroundColor: Colors.red);
         } else if (state.error == null && !state.isLoading && state.file == null) {
@@ -129,15 +135,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       onPressed: () => _deleteDialog(widget.model!),
                       child: const Icon(CupertinoIcons.delete, color: Colors.red),
                     ),
-                  CustomIconButton(
-                    onPressed: () {
-                      context.go("${AppRouteNames.home}${AppRouteNames.adminHome}/${AppRouteNames.adminOrder}");
-                    },
-                    child: Image.asset(
-                      "assets/icons/shop_active_icon.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ],
               ),
               body: Padding(
@@ -145,26 +142,39 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      if (state.file != null)
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 220.h,
+                              width: double.infinity,
+                              child: Padding(
+                                padding: REdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                child: CustomHomeTopCard(
+                                  image: FileImage(state.file!),
+                                  sale: true,
+                                  onTap: () => bloc.add(const AdminEvent.pickFile()),
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              thickness: 9,
+                              color: Colors.grey.shade200,
+                            ),
+                          ],
+                        ),
                       20.verticalSpace,
                       LayoutBuilder(
                         builder: (context, constraints) {
                           double width = constraints.maxWidth;
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(18),
-                            child: SizedBox(
-                              height: width,
-                              width: width,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  image: backgroundImage(file: state.file),
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    bloc.add(const AdminEvent.pickFile());
-                                  },
-                                ),
-                              ),
+                          return SizedBox(
+                            height: width,
+                            width: width,
+                            child: CustomHomeTopCard(
+                              image: _backgroundImage(state.file)!.image,
+                              sale: true,
+                              fit: BoxFit.cover,
+                              onTap: () => bloc.add(const AdminEvent.pickFile()),
                             ),
                           );
                         },
@@ -174,7 +184,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         children: [
                           Expanded(
                             flex: 4,
-                            child: MyTextField(controller: nameC, label: const Text("Имя"), keyboardType: TextInputType.text, maxLines: 1),
+                            child: MyTextField(
+                              controller: nameC,
+                              label: const Text("Имя"),
+                              keyboardType: TextInputType.text,
+                            ),
                           ),
                           3.horizontalSpace,
                           Expanded(
@@ -183,7 +197,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               controller: heightImageC,
                               label: const Text("Высота"),
                               keyboardType: TextInputType.number,
-                              maxLines: 1,
                             ),
                           ),
                           3.horizontalSpace,
@@ -193,7 +206,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               controller: widthImageC,
                               label: const Text("Ширина"),
                               keyboardType: TextInputType.number,
-                              maxLines: 1,
                             ),
                           ),
                         ],
@@ -204,15 +216,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         label: const Text("Описание"),
                         keyboardType: TextInputType.text,
                         minLines: 2,
-                        maxLines: 5,
+                        maxLines: null,
                       ),
                       10.verticalSpace,
                       MyTextField(
                         controller: aboutTheProductC,
                         label: const Text("О товаре"),
-                        keyboardType: TextInputType.text,
-                        minLines: 3,
-                        maxLines: 6,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        minLines: 2,
+                        maxLines: null,
                       ),
                       10.verticalSpace,
                       Row(
@@ -231,7 +244,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               controller: discountedPriceC,
                               label: const Text("Цена со скидкой"),
                               keyboardType: TextInputType.number,
-                              maxLines: 1,
                             ),
                           ),
                         ],
@@ -285,7 +297,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 
-  DecorationImage? backgroundImage({File? file}) {
+  DecorationImage? _backgroundImage([File? file]) {
     if (file != null) {
       return DecorationImage(
         image: FileImage(file),
@@ -293,7 +305,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       );
     } else {
       return DecorationImage(
-        image: widget.model != null ? NetworkImage(widget.model!.image!) : const AssetImage("assets/images/no_image.png"),
+        image: widget.model != null ? NetworkImage(widget.model!.image!) : const AssetImage("assets/icons/flower_icon.png"),
         fit: BoxFit.cover,
       );
     }

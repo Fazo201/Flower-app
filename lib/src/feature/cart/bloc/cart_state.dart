@@ -7,5 +7,6 @@ class CartState with _$CartState {
     @Default(0) int totalCount,
     @Default(0) double totalCost,
     @Default(false) bool isLoading,
+    String? error,
   }) = _Initial;
 }

@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
+import 'package:flower_app/setup.dart';
 import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
 import 'package:flower_app/src/feature/home/view/widgets/custom_home_top_card.dart';
-import 'package:flower_app/src/feature/user/cart/bloc/cart_bloc.dart';
+import 'package:flower_app/src/feature/cart/bloc/cart_bloc.dart';
 import 'package:flower_app/src/feature/home/bloc/home_bloc.dart';
 import 'package:flower_app/src/feature/home/view/widgets/custom_home_card.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     log("initState HomeScreen");
-    bloc = context.read<HomeBloc>()..add(const HomeEvent.getAllProducts());
+    bloc = context.read<HomeBloc>();
     cartBloc = context.read<CartBloc>();
     super.initState();
   }
@@ -40,12 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     refreshController.dispose();
-    bloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("BUILD HomeScreen");
     return AddToCartAnimation(
       cartKey: cartKey,
       dragAnimation: const DragToCartAnimationOptions(
@@ -62,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocConsumer<HomeBloc, HomeState>(
         bloc: bloc,
         listener: (context, state) {
-          log("LISTENER");
-          if (!state.isLoading) {
+          log("LISTENER HomeScreen");
+          if (state.isRefreshCompleted == true) {
             log("refreshCompleted");
             refreshController.refreshCompleted();
           }
@@ -74,24 +75,32 @@ class _HomeScreenState extends State<HomeScreen> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                "Shabnam",
-                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.pink.shade800),
+                "Flowers",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
               ),
               leading: CustomIconButton(
-                onPressed: () async => await _navigateToAdmin(),
-                iconPadding: REdgeInsets.all(4),
+                onPressed: () async {
+                  if (isAdmin) {
+                    await _navigateToAdmin();
+                  }
+                },
+                iconPadding: REdgeInsets.all(3),
                 child: Image.asset(
                   "assets/icons/flower_icon.png",
                   fit: BoxFit.cover,
-                  color: context.theme.colorScheme.onSurface,
                 ),
               ),
               actions: [
                 AddToCartIcon(
                   key: cartKey,
                   icon: CustomIconButton(
-                    onPressed: () {
-                      context.push("${AppRouteNames.home}${AppRouteNames.cart}");
+                    onPressed: () async {
+                      if (isAdmin || cartBloc.state.productList.isEmpty) {
+                        context.push("/${AppRouteNames.cart}/${AppRouteNames.order}");
+                      } else {
+                        await context.push("/${AppRouteNames.cart}");
+                        await cartKey.currentState!.runCartAnimation(cartBloc.state.totalCount.toString());
+                      }
                     },
                     padding: EdgeInsets.zero,
                     child: Image.asset(
@@ -115,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 : SmartRefresher(
                     controller: refreshController,
-                    onRefresh: () => bloc.add(const HomeEvent.getAllProducts()),
+                    onRefresh: () => bloc.add(const HomeEvent.getAllProducts(isRefresh: true)),
                     header: const WaterDropHeader(complete: Icon(Icons.gpp_good_outlined, color: Colors.green, size: 25)),
                     child: CustomScrollView(
                       slivers: [
@@ -129,11 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: PageView.builder(
                                     controller: PageController(viewportFraction: 0.9),
                                     itemBuilder: (BuildContext context, int index) {
-                                      return CustomHomeTopCard(
-                                        imageUrl: products[index].image!,
-                                        onTap: () {
-                                          context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: products[index]);
-                                        },
+                                      final product = products[index];
+                                      return Padding(
+                                        padding: REdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                        child: CustomHomeTopCard(
+                                          image: NetworkImage(product.image!),
+                                          onTap: () async => await _navigateToHomeDetail(product),
+                                          sale: product.sale ?? false,
+                                        ),
                                       );
                                     },
                                     itemCount: products.length,
@@ -159,17 +171,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               (context, index) {
                                 final product = products[index];
                                 return CustomHomeCard(
-                                  imageUrl: product.image,
-                                  name: product.name,
-                                  description: product.description,
-                                  price: product.price,
-                                  discountedPrice: product.discountedPrice,
-                                  // onTapCard: () => _navigateToAdmin(product),
-                                  onTapCard: () {
-                                    context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: product);
-                                  },
+                                  model: product,
+                                  onTapCard: () async => await _navigateToHomeDetail(product),
                                   shopOnPressed: (widgetKey) {
-                                    addToCart(widgetKey, product);
+                                    if (!isAdmin) {
+                                      addToCart(widgetKey, product);
+                                    }
                                   },
                                 );
                               },
@@ -186,23 +193,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void addToCart(GlobalKey widgetKey, FlowerModel product) async {
+  Future<void> addToCart(GlobalKey widgetKey, FlowerModel product) async {
     cartBloc.add(CartEvent.addToCart(product));
     await runAddToCartAnimation(widgetKey);
     await cartKey.currentState!.runCartAnimation(cartBloc.state.totalCount.toString());
   }
 
   Future<void> _navigateToAdmin([FlowerModel? model]) async {
-    final result = await context.push("${AppRouteNames.home}${AppRouteNames.adminHome}", extra: model);
+    final result = await context.push("/${AppRouteNames.adminHome}", extra: model);
     if (result == true) {
       bloc.add(const HomeEvent.getAllProducts());
     }
   }
 
-  // Future<void> _navigateToCart(FlowerModel model) async {
-  //   final result = await context.push("${AppRouteNames.home}${AppRouteNames.homeDetail}", extra: model);
-  //   if (result == true) {
-  //     bloc.add(const HomeEvent.getAllProducts());
-  //   }
-  // }
+  Future<void> _navigateToHomeDetail(FlowerModel product) async {
+    if (isAdmin) {
+      await _navigateToAdmin(product);
+    } else {
+      await context.push("/${AppRouteNames.homeDetail}", extra: product);
+      await cartKey.currentState!.runCartAnimation(cartBloc.state.totalCount.toString());
+    }
+  }
+
+  Future<void> _navigateToCart(FlowerModel product) async {
+    if (isAdmin) {
+      await _navigateToAdmin(product);
+    } else {
+      await context.push("/${AppRouteNames.homeDetail}", extra: product);
+      await cartKey.currentState!.runCartAnimation(cartBloc.state.totalCount.toString());
+    }
+  }
 }

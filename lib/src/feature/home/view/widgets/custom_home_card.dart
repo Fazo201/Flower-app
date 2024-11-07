@@ -1,23 +1,16 @@
 import 'package:flower_app/src/core/constants/context_extension.dart';
+import 'package:flower_app/src/data/entity/flower_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomHomeCard extends StatelessWidget {
   CustomHomeCard({
     super.key,
-    this.imageUrl,
-    this.name,
-    this.description,
-    this.price,
-    this.discountedPrice,
+    required this.model,
     this.onTapCard,
     required this.shopOnPressed,
   });
-  final String? imageUrl;
-  final String? name;
-  final String? description;
-  final double? price;
-  final double? discountedPrice;
+  final FlowerModel model;
   final void Function()? onTapCard;
   final void Function(GlobalKey) shopOnPressed;
   final GlobalKey widgetKey = GlobalKey();
@@ -36,18 +29,43 @@ class CustomHomeCard extends StatelessWidget {
             children: [
               LayoutBuilder(builder: (context, constraints) {
                 double width = constraints.maxWidth;
-                return Container(
-                  key: widgetKey,
-                  height: width,
-                  width: width,
-                  decoration: BoxDecoration(borderRadius: borderRadius),
-                  child: ClipRRect(
-                    borderRadius: borderRadius,
-                    child: Image.network(
-                      imageUrl ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvKch888mIQd5F21sYSavIy8-5mY1ioZH9cQ&s",
-                      fit: BoxFit.cover,
+                return Stack(
+                  children: [
+                    Container(
+                      key: widgetKey,
+                      height: width,
+                      width: width,
+                      decoration: BoxDecoration(borderRadius: borderRadius),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: borderRadius,
+                              image: DecorationImage(
+                                image: model.image != null ? NetworkImage(model.image!): const AssetImage("assets/icons/flower_icon.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          if (model.sale==true)
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                margin: REdgeInsets.all(5),
+                                padding: REdgeInsets.symmetric(horizontal: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.pink.shade800,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Text("Распродажа", style: TextStyle(color: Colors.white, fontSize: 12)),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 );
               }),
               Padding(
@@ -56,13 +74,13 @@ class CustomHomeCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name ?? "",
+                      model.name??"",
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "$description\n",
+                      "${model.description ?? "\n"}\n",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
@@ -79,13 +97,13 @@ class CustomHomeCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  price.toString(),
+                                  "${model.price} сум",
                                   style: const TextStyle(decoration: TextDecoration.lineThrough),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  "$discountedPrice сум",
+                                  "${model.discountedPrice} сум",
                                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

@@ -1,11 +1,12 @@
 import "package:flower_app/src/core/routes/app_route_names.dart";
 import "package:flower_app/src/data/entity/flower_model.dart";
+import "package:flower_app/src/data/entity/order_model.dart";
 import "package:flower_app/src/feature/admin/admin_home/view/admin_home_screen.dart";
-import "package:flower_app/src/feature/admin/admin_order/admin_order_screen.dart";
-import "package:flower_app/src/feature/user/cart/view/screens/cart_screen.dart";
+import "package:flower_app/src/feature/cart/view/screens/cart_screen.dart";
 import "package:flower_app/src/feature/home/view/screens/home_detail_screen.dart";
 import "package:flower_app/src/feature/home/view/screens/home_screen.dart";
-import "package:flower_app/src/feature/user/order/order_screen.dart";
+import "package:flower_app/src/feature/order/view/screens/order_detail_screen.dart";
+import "package:flower_app/src/feature/order/view/screens/order_screen.dart";
 import "package:flutter/cupertino.dart";
 import "package:go_router/go_router.dart";
 
@@ -50,6 +51,15 @@ final class RouterConfigService {
     pageBuilder: (BuildContext context, GoRouterState state) {
       return _customNavigatorTransitionAnimation(context, state, const OrderScreen());
     },
+    routes: [orderDetail],
+  );
+
+  static final GoRoute orderDetail = GoRoute(
+    path: AppRouteNames.orderDetail,
+    pageBuilder: (BuildContext context, GoRouterState state) {
+      final order = state.extra as OrderModel;
+      return _customNavigatorTransitionAnimation(context, state, OrderDetailScreen(order: order));
+    },
   );
 
   static final GoRoute adminHome = GoRoute(
@@ -58,16 +68,7 @@ final class RouterConfigService {
       final model = state.extra as FlowerModel?;
       return _customNavigatorTransitionAnimation(context, state, AdminHomeScreen(model: model));
     },
-    routes: [adminOrder],
   );
-
-  static final GoRoute adminOrder = GoRoute(
-    path: AppRouteNames.adminOrder,
-    pageBuilder: (BuildContext context, GoRouterState state) {
-      return _customNavigatorTransitionAnimation(context, state, const AdminOrderScreen());
-    },
-  );
-
 
   static Page<dynamic> _customNavigatorTransitionAnimation(
     BuildContext context,

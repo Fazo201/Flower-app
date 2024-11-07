@@ -16,15 +16,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onGetAllProducts(_GetAllProducts event, Emitter<HomeState> emit) async {
-    log("getAllProducts");
+    log("_onGetAllProducts");
     try {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(isLoading: true, isRefreshCompleted: false));
       final List<FlowerModel> flowerList = await appRepo.getAllData();
       emit(state.copyWith(productList: flowerList));
     } catch (e) {
-      log("Error fetching products: $e");
+      emit(state.copyWith(error: e.toString()));
     } finally {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, isRefreshCompleted: event.isRefresh));
     }
   }
 }

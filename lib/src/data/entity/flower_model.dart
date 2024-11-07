@@ -12,11 +12,10 @@ class FlowerModel {
     String? description;
     String? aboutTheProduct;
     double? price;
-    double? totalPrice;
     double? discountedPrice;
+    double? totalPrice;
     String? createdTime;
     int? count;
-    bool? confirm;
     bool? sale;
 
     FlowerModel({
@@ -27,11 +26,10 @@ class FlowerModel {
         this.description,
         this.aboutTheProduct,
         this.price,
-        this.totalPrice,
         this.discountedPrice,
+        this.totalPrice,
         this.createdTime,
         this.count,
-        this.confirm,
         this.sale,
     });
 
@@ -43,11 +41,10 @@ class FlowerModel {
         String? description,
         String? aboutTheProduct,
         double? price,
-        double? totalPrice,
         double? discountedPrice,
+        double? totalPrice,
         String? createdTime,
         int? count,
-        bool? confirm,
         bool? sale,
     }) => 
         FlowerModel(
@@ -58,11 +55,10 @@ class FlowerModel {
             description: description ?? this.description,
             aboutTheProduct: aboutTheProduct ?? this.aboutTheProduct,
             price: price ?? this.price,
-            totalPrice: totalPrice ?? this.totalPrice,
             discountedPrice: discountedPrice ?? this.discountedPrice,
+            totalPrice: totalPrice ?? this.totalPrice,
             createdTime: createdTime ?? this.createdTime,
             count: count ?? this.count,
-            confirm: confirm ?? this.confirm,
             sale: sale ?? this.sale,
         );
 
@@ -74,11 +70,10 @@ class FlowerModel {
         description: json["description"],
         aboutTheProduct: json["aboutTheProduct"],
         price: json["price"]?.toDouble(),
-        totalPrice: json["totalPrice"]?.toDouble(),
         discountedPrice: json["discountedPrice"]?.toDouble(),
+        totalPrice: json["totalPrice"]?.toDouble(),
         createdTime: json["createdTime"],
         count: json["count"],
-        confirm: json["confirm"],
         sale: json["sale"],
     );
 
@@ -90,11 +85,10 @@ class FlowerModel {
         "description": description,
         "aboutTheProduct": aboutTheProduct,
         "price": price,
-        "totalPrice": totalPrice,
         "discountedPrice": discountedPrice,
+        "totalPrice": totalPrice,
         "createdTime": createdTime,
         "count": count,
-        "confirm": confirm,
         "sale": sale,
     };
 }
