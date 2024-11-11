@@ -46,7 +46,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       log("Error fetching products: $e");
     }
   }
-  
+
   Future<void> _onRemoveCard(_RemoveCard event, Emitter<CartState> emit) async {
     log("_onDecrement");
     final newProductList = List<FlowerModel>.from(state.productList);
@@ -84,7 +84,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final newProductList = List<FlowerModel>.from(state.productList);
     final product = newProductList[event.index];
 
-    if (product.count != null&&product.count! > 1) {
+    if (product.count != null && product.count! > 1) {
       newProductList[event.index] = product.copyWith(
         count: product.count! - 1,
         totalPrice: product.discountedPrice! * (product.count! - 1),

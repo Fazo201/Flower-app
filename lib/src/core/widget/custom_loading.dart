@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class CustomLoading extends StatelessWidget {
   const CustomLoading({super.key, required this.visible});
@@ -15,9 +17,10 @@ class CustomLoading extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
           child: Center(
-            child: CircularProgressIndicator(
-              color: Colors.blue.shade600,
-              strokeWidth: 8,
+            child: Lottie.asset(
+              "assets/lotties/loading_lottie.json",
+              height: 60.sp,
+              width: 60.sp,
             ),
           ),
         ),

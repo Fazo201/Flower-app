@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flower_app/setup.dart';
 import 'package:flower_app/src/core/constants/context_extension.dart';
 import 'package:flower_app/src/core/routes/app_route_names.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -65,18 +67,17 @@ class _HomeScreenState extends State<HomeScreen> {
         listener: (context, state) {
           log("LISTENER HomeScreen");
           if (state.isRefreshCompleted == true) {
-            log("refreshCompleted");
             refreshController.refreshCompleted();
           }
         },
         builder: (context, state) {
-          final products = state.productList;
           final saleProducts = state.productList.where((product) => product.sale == true).toList();
+          final products = state.productList.where((product) => product.sale != true).toList();
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                "Flowers",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+                phoneNumber ?? "",
+                style: const TextStyle(fontSize: 16),
               ),
               leading: CustomIconButton(
                 onPressed: () async {
@@ -112,45 +113,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            body: products.isEmpty
-                ? Center(
-                    child: Padding(
-                      padding: REdgeInsets.all(30),
-                      child: Image.asset(
-                        "assets/images/empty_image.png",
-                        fit: BoxFit.cover,
+            body: SmartRefresher(
+              controller: refreshController,
+              onRefresh: () => bloc.add(const HomeEvent.getAllProducts(isRefresh: true)),
+              header: const WaterDropHeader(complete: Icon(Icons.gpp_good_outlined, color: Colors.green, size: 25)),
+              child: products.isEmpty
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Lottie.asset(
+                          "assets/lotties/network_lottie.json",
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  )
-                : SmartRefresher(
-                    controller: refreshController,
-                    onRefresh: () => bloc.add(const HomeEvent.getAllProducts(isRefresh: true)),
-                    header: const WaterDropHeader(complete: Icon(Icons.gpp_good_outlined, color: Colors.green, size: 25)),
-                    child: CustomScrollView(
+                    )
+                  : CustomScrollView(
                       slivers: [
                         if (saleProducts.isNotEmpty)
                           SliverToBoxAdapter(
                             child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 220.h,
-                                  width: double.infinity,
-                                  child: PageView.builder(
-                                    controller: PageController(viewportFraction: 0.9),
-                                    itemBuilder: (BuildContext context, int index) {
-                                      final product = products[index];
-                                      return Padding(
-                                        padding: REdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                                        child: CustomHomeTopCard(
-                                          image: NetworkImage(product.image!),
-                                          onTap: () async => await _navigateToHomeDetail(product),
-                                          sale: product.sale ?? false,
-                                        ),
-                                      );
-                                    },
-                                    itemCount: products.length,
+                               children: [
+                                CarouselSlider.builder(
+                                  options: CarouselOptions(
+                                    height: 220.h,
+                                    viewportFraction: 0.9,
+                                    enlargeCenterPage: true,
+                                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                                    autoPlay: true,
                                   ),
-                                ),
+                                  itemBuilder: (context,index,realIndex){
+                                    final product = saleProducts[index];
+                                    return Padding(
+                                      padding: REdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                      child: CustomHomeTopCard(
+                                            image: NetworkImage(product.image!),
+                                            onTap: () async => await _navigateToHomeDetail(product),
+                                            sale: product.sale ?? false,
+                                          ),
+                                    );
+                                  }, 
+                                  itemCount: saleProducts.length, 
+                                  ),
+                                
                                 Divider(
                                   thickness: 9,
                                   color: Colors.grey.shade200,
@@ -186,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                  ),
+            ),
           );
         },
       ),
@@ -215,12 +219,4 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _navigateToCart(FlowerModel product) async {
-    if (isAdmin) {
-      await _navigateToAdmin(product);
-    } else {
-      await context.push("/${AppRouteNames.homeDetail}", extra: product);
-      await cartKey.currentState!.runCartAnimation(cartBloc.state.totalCount.toString());
-    }
-  }
 }

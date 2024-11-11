@@ -19,7 +19,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
@@ -28,7 +29,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
@@ -37,7 +39,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
@@ -47,7 +50,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
@@ -56,7 +60,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
@@ -65,7 +70,8 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
@@ -137,7 +143,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
@@ -149,7 +156,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
@@ -161,7 +169,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
@@ -177,7 +186,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
@@ -189,7 +199,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
@@ -201,7 +212,8 @@ class _$PickFileImpl implements _PickFile {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
@@ -219,18 +231,18 @@ abstract class _PickFile implements AdminEvent {
 }
 
 /// @nodoc
-abstract class _$$DeletePickFileImplCopyWith<$Res> {
-  factory _$$DeletePickFileImplCopyWith(_$DeletePickFileImpl value,
-          $Res Function(_$DeletePickFileImpl) then) =
-      __$$DeletePickFileImplCopyWithImpl<$Res>;
+abstract class _$$RemoveFileImplCopyWith<$Res> {
+  factory _$$RemoveFileImplCopyWith(
+          _$RemoveFileImpl value, $Res Function(_$RemoveFileImpl) then) =
+      __$$RemoveFileImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DeletePickFileImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$DeletePickFileImpl>
-    implements _$$DeletePickFileImplCopyWith<$Res> {
-  __$$DeletePickFileImplCopyWithImpl(
-      _$DeletePickFileImpl _value, $Res Function(_$DeletePickFileImpl) _then)
+class __$$RemoveFileImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$RemoveFileImpl>
+    implements _$$RemoveFileImplCopyWith<$Res> {
+  __$$RemoveFileImplCopyWithImpl(
+      _$RemoveFileImpl _value, $Res Function(_$RemoveFileImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of AdminEvent
@@ -239,18 +251,18 @@ class __$$DeletePickFileImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DeletePickFileImpl implements _DeletePickFile {
-  const _$DeletePickFileImpl();
+class _$RemoveFileImpl implements _RemoveFile {
+  const _$RemoveFileImpl();
 
   @override
   String toString() {
-    return 'AdminEvent.deletePickFile()';
+    return 'AdminEvent.removeFile()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DeletePickFileImpl);
+        (other.runtimeType == runtimeType && other is _$RemoveFileImpl);
   }
 
   @override
@@ -260,38 +272,41 @@ class _$DeletePickFileImpl implements _DeletePickFile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
   }) {
-    return deletePickFile();
+    return removeFile();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
   }) {
-    return deletePickFile?.call();
+    return removeFile?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
     required TResult orElse(),
   }) {
-    if (deletePickFile != null) {
-      return deletePickFile();
+    if (removeFile != null) {
+      return removeFile();
     }
     return orElse();
   }
@@ -300,45 +315,212 @@ class _$DeletePickFileImpl implements _DeletePickFile {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
   }) {
-    return deletePickFile(this);
+    return removeFile(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
   }) {
-    return deletePickFile?.call(this);
+    return removeFile?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
     required TResult orElse(),
   }) {
-    if (deletePickFile != null) {
-      return deletePickFile(this);
+    if (removeFile != null) {
+      return removeFile(this);
     }
     return orElse();
   }
 }
 
-abstract class _DeletePickFile implements AdminEvent {
-  const factory _DeletePickFile() = _$DeletePickFileImpl;
+abstract class _RemoveFile implements AdminEvent {
+  const factory _RemoveFile() = _$RemoveFileImpl;
+}
+
+/// @nodoc
+abstract class _$$ToggleSaleImplCopyWith<$Res> {
+  factory _$$ToggleSaleImplCopyWith(
+          _$ToggleSaleImpl value, $Res Function(_$ToggleSaleImpl) then) =
+      __$$ToggleSaleImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool? value});
+}
+
+/// @nodoc
+class __$$ToggleSaleImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$ToggleSaleImpl>
+    implements _$$ToggleSaleImplCopyWith<$Res> {
+  __$$ToggleSaleImplCopyWithImpl(
+      _$ToggleSaleImpl _value, $Res Function(_$ToggleSaleImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = freezed,
+  }) {
+    return _then(_$ToggleSaleImpl(
+      freezed == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ToggleSaleImpl implements _ToggleSale {
+  const _$ToggleSaleImpl(this.value);
+
+  @override
+  final bool? value;
+
+  @override
+  String toString() {
+    return 'AdminEvent.toggleSale(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ToggleSaleImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ToggleSaleImplCopyWith<_$ToggleSaleImpl> get copyWith =>
+      __$$ToggleSaleImplCopyWithImpl<_$ToggleSaleImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() pickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
+    required TResult Function(FlowerModel product) addNewProduct,
+    required TResult Function(FlowerModel product, File? file) updateProduct,
+    required TResult Function(FlowerModel product) deleteProduct,
+  }) {
+    return toggleSale(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? pickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
+    TResult? Function(FlowerModel product)? addNewProduct,
+    TResult? Function(FlowerModel product, File? file)? updateProduct,
+    TResult? Function(FlowerModel product)? deleteProduct,
+  }) {
+    return toggleSale?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? pickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
+    TResult Function(FlowerModel product)? addNewProduct,
+    TResult Function(FlowerModel product, File? file)? updateProduct,
+    TResult Function(FlowerModel product)? deleteProduct,
+    required TResult orElse(),
+  }) {
+    if (toggleSale != null) {
+      return toggleSale(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PickFile value) pickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
+    required TResult Function(_AddNewProduct value) addNewProduct,
+    required TResult Function(_UpdateProduct value) updateProduct,
+    required TResult Function(_DeleteProduct value) deleteProduct,
+  }) {
+    return toggleSale(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PickFile value)? pickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
+    TResult? Function(_AddNewProduct value)? addNewProduct,
+    TResult? Function(_UpdateProduct value)? updateProduct,
+    TResult? Function(_DeleteProduct value)? deleteProduct,
+  }) {
+    return toggleSale?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PickFile value)? pickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
+    TResult Function(_AddNewProduct value)? addNewProduct,
+    TResult Function(_UpdateProduct value)? updateProduct,
+    TResult Function(_DeleteProduct value)? deleteProduct,
+    required TResult orElse(),
+  }) {
+    if (toggleSale != null) {
+      return toggleSale(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToggleSale implements AdminEvent {
+  const factory _ToggleSale(final bool? value) = _$ToggleSaleImpl;
+
+  bool? get value;
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ToggleSaleImplCopyWith<_$ToggleSaleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -410,7 +592,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
@@ -422,7 +605,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
@@ -434,7 +618,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
@@ -450,7 +635,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
@@ -462,7 +648,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
@@ -474,7 +661,8 @@ class _$AddNewProductImpl implements _AddNewProduct {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
@@ -576,7 +764,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
@@ -588,7 +777,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
@@ -600,7 +790,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
@@ -616,7 +807,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
@@ -628,7 +820,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
@@ -640,7 +833,8 @@ class _$UpdateProductImpl implements _UpdateProduct {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
@@ -737,7 +931,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() pickFile,
-    required TResult Function() deletePickFile,
+    required TResult Function() removeFile,
+    required TResult Function(bool? value) toggleSale,
     required TResult Function(FlowerModel product) addNewProduct,
     required TResult Function(FlowerModel product, File? file) updateProduct,
     required TResult Function(FlowerModel product) deleteProduct,
@@ -749,7 +944,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? pickFile,
-    TResult? Function()? deletePickFile,
+    TResult? Function()? removeFile,
+    TResult? Function(bool? value)? toggleSale,
     TResult? Function(FlowerModel product)? addNewProduct,
     TResult? Function(FlowerModel product, File? file)? updateProduct,
     TResult? Function(FlowerModel product)? deleteProduct,
@@ -761,7 +957,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? pickFile,
-    TResult Function()? deletePickFile,
+    TResult Function()? removeFile,
+    TResult Function(bool? value)? toggleSale,
     TResult Function(FlowerModel product)? addNewProduct,
     TResult Function(FlowerModel product, File? file)? updateProduct,
     TResult Function(FlowerModel product)? deleteProduct,
@@ -777,7 +974,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PickFile value) pickFile,
-    required TResult Function(_DeletePickFile value) deletePickFile,
+    required TResult Function(_RemoveFile value) removeFile,
+    required TResult Function(_ToggleSale value) toggleSale,
     required TResult Function(_AddNewProduct value) addNewProduct,
     required TResult Function(_UpdateProduct value) updateProduct,
     required TResult Function(_DeleteProduct value) deleteProduct,
@@ -789,7 +987,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PickFile value)? pickFile,
-    TResult? Function(_DeletePickFile value)? deletePickFile,
+    TResult? Function(_RemoveFile value)? removeFile,
+    TResult? Function(_ToggleSale value)? toggleSale,
     TResult? Function(_AddNewProduct value)? addNewProduct,
     TResult? Function(_UpdateProduct value)? updateProduct,
     TResult? Function(_DeleteProduct value)? deleteProduct,
@@ -801,7 +1000,8 @@ class _$DeleteProductImpl implements _DeleteProduct {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PickFile value)? pickFile,
-    TResult Function(_DeletePickFile value)? deletePickFile,
+    TResult Function(_RemoveFile value)? removeFile,
+    TResult Function(_ToggleSale value)? toggleSale,
     TResult Function(_AddNewProduct value)? addNewProduct,
     TResult Function(_UpdateProduct value)? updateProduct,
     TResult Function(_DeleteProduct value)? deleteProduct,
@@ -829,22 +1029,49 @@ abstract class _DeleteProduct implements AdminEvent {
 /// @nodoc
 mixin _$AdminState {
   File? get file => throw _privateConstructorUsedError;
+  bool get isOnSale => throw _privateConstructorUsedError;
+  bool get isAddedNewProduct => throw _privateConstructorUsedError;
+  bool get isUpdatedProduct => throw _privateConstructorUsedError;
+  bool get isDeletedProduct => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(File? file, bool isLoading, String? error)
+    required TResult Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(File? file, bool isLoading, String? error)? initial,
+    TResult? Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)?
+        initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(File? file, bool isLoading, String? error)? initial,
+    TResult Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)?
+        initial,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -878,7 +1105,14 @@ abstract class $AdminStateCopyWith<$Res> {
           AdminState value, $Res Function(AdminState) then) =
       _$AdminStateCopyWithImpl<$Res, AdminState>;
   @useResult
-  $Res call({File? file, bool isLoading, String? error});
+  $Res call(
+      {File? file,
+      bool isOnSale,
+      bool isAddedNewProduct,
+      bool isUpdatedProduct,
+      bool isDeletedProduct,
+      bool isLoading,
+      String? error});
 }
 
 /// @nodoc
@@ -897,6 +1131,10 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
   @override
   $Res call({
     Object? file = freezed,
+    Object? isOnSale = null,
+    Object? isAddedNewProduct = null,
+    Object? isUpdatedProduct = null,
+    Object? isDeletedProduct = null,
     Object? isLoading = null,
     Object? error = freezed,
   }) {
@@ -905,6 +1143,22 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as File?,
+      isOnSale: null == isOnSale
+          ? _value.isOnSale
+          : isOnSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAddedNewProduct: null == isAddedNewProduct
+          ? _value.isAddedNewProduct
+          : isAddedNewProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdatedProduct: null == isUpdatedProduct
+          ? _value.isUpdatedProduct
+          : isUpdatedProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isDeletedProduct: null == isDeletedProduct
+          ? _value.isDeletedProduct
+          : isDeletedProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -925,7 +1179,14 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({File? file, bool isLoading, String? error});
+  $Res call(
+      {File? file,
+      bool isOnSale,
+      bool isAddedNewProduct,
+      bool isUpdatedProduct,
+      bool isDeletedProduct,
+      bool isLoading,
+      String? error});
 }
 
 /// @nodoc
@@ -942,6 +1203,10 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? file = freezed,
+    Object? isOnSale = null,
+    Object? isAddedNewProduct = null,
+    Object? isUpdatedProduct = null,
+    Object? isDeletedProduct = null,
     Object? isLoading = null,
     Object? error = freezed,
   }) {
@@ -950,6 +1215,22 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as File?,
+      isOnSale: null == isOnSale
+          ? _value.isOnSale
+          : isOnSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAddedNewProduct: null == isAddedNewProduct
+          ? _value.isAddedNewProduct
+          : isAddedNewProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdatedProduct: null == isUpdatedProduct
+          ? _value.isUpdatedProduct
+          : isUpdatedProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isDeletedProduct: null == isDeletedProduct
+          ? _value.isDeletedProduct
+          : isDeletedProduct // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -965,10 +1246,29 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl({this.file, this.isLoading = false, this.error});
+  const _$InitialImpl(
+      {this.file,
+      this.isOnSale = false,
+      this.isAddedNewProduct = false,
+      this.isUpdatedProduct = false,
+      this.isDeletedProduct = false,
+      this.isLoading = false,
+      this.error});
 
   @override
   final File? file;
+  @override
+  @JsonKey()
+  final bool isOnSale;
+  @override
+  @JsonKey()
+  final bool isAddedNewProduct;
+  @override
+  @JsonKey()
+  final bool isUpdatedProduct;
+  @override
+  @JsonKey()
+  final bool isDeletedProduct;
   @override
   @JsonKey()
   final bool isLoading;
@@ -977,7 +1277,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AdminState.initial(file: $file, isLoading: $isLoading, error: $error)';
+    return 'AdminState.initial(file: $file, isOnSale: $isOnSale, isAddedNewProduct: $isAddedNewProduct, isUpdatedProduct: $isUpdatedProduct, isDeletedProduct: $isDeletedProduct, isLoading: $isLoading, error: $error)';
   }
 
   @override
@@ -986,13 +1286,22 @@ class _$InitialImpl implements _Initial {
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
             (identical(other.file, file) || other.file == file) &&
+            (identical(other.isOnSale, isOnSale) ||
+                other.isOnSale == isOnSale) &&
+            (identical(other.isAddedNewProduct, isAddedNewProduct) ||
+                other.isAddedNewProduct == isAddedNewProduct) &&
+            (identical(other.isUpdatedProduct, isUpdatedProduct) ||
+                other.isUpdatedProduct == isUpdatedProduct) &&
+            (identical(other.isDeletedProduct, isDeletedProduct) ||
+                other.isDeletedProduct == isDeletedProduct) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, file, isLoading, error);
+  int get hashCode => Object.hash(runtimeType, file, isOnSale,
+      isAddedNewProduct, isUpdatedProduct, isDeletedProduct, isLoading, error);
 
   /// Create a copy of AdminState
   /// with the given fields replaced by the non-null parameter values.
@@ -1005,28 +1314,54 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(File? file, bool isLoading, String? error)
+    required TResult Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)
         initial,
   }) {
-    return initial(file, isLoading, error);
+    return initial(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
+        isDeletedProduct, isLoading, error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(File? file, bool isLoading, String? error)? initial,
+    TResult? Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)?
+        initial,
   }) {
-    return initial?.call(file, isLoading, error);
+    return initial?.call(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
+        isDeletedProduct, isLoading, error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(File? file, bool isLoading, String? error)? initial,
+    TResult Function(
+            File? file,
+            bool isOnSale,
+            bool isAddedNewProduct,
+            bool isUpdatedProduct,
+            bool isDeletedProduct,
+            bool isLoading,
+            String? error)?
+        initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(file, isLoading, error);
+      return initial(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
+          isDeletedProduct, isLoading, error);
     }
     return orElse();
   }
@@ -1063,11 +1398,23 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements AdminState {
   const factory _Initial(
       {final File? file,
+      final bool isOnSale,
+      final bool isAddedNewProduct,
+      final bool isUpdatedProduct,
+      final bool isDeletedProduct,
       final bool isLoading,
       final String? error}) = _$InitialImpl;
 
   @override
   File? get file;
+  @override
+  bool get isOnSale;
+  @override
+  bool get isAddedNewProduct;
+  @override
+  bool get isUpdatedProduct;
+  @override
+  bool get isDeletedProduct;
   @override
   bool get isLoading;
   @override

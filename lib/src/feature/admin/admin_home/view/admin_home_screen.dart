@@ -42,13 +42,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     discountedPriceC.text = widget.model?.discountedPrice.toString() ?? "";
     heightImageC.text = widget.model?.size?.heigt.toString() ?? "";
     widthImageC.text = widget.model?.size?.width.toString() ?? "";
-    bloc = context.read<AdminBloc>();
+    bloc = context.read<AdminBloc>()..add(AdminEvent.toggleSale(widget.model?.sale));
     super.initState();
   }
 
   @override
   void dispose() {
-    bloc.add(const AdminEvent.deletePickFile());
+    bloc.add(const AdminEvent.removeFile());
     nameC.dispose();
     descriptionC.dispose();
     aboutTheProductC.dispose();
@@ -59,52 +59,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     super.dispose();
   }
 
-  void addNewProduct() {
-    FocusScope.of(context).unfocus();
-    log("Image File: ${bloc.state.file?.path}");
-    if (nameC.text.isNotEmpty &&
-        descriptionC.text.isNotEmpty &&
-        aboutTheProductC.text.isNotEmpty &&
-        priceC.text.isNotEmpty &&
-        discountedPriceC.text.isNotEmpty &&
-        heightImageC.text.isNotEmpty &&
-        widthImageC.text.isNotEmpty) {
-      final flowerModel = widget.model?.copyWith(
-            name: nameC.text,
-            description: descriptionC.text,
-            aboutTheProduct: aboutTheProductC.text,
-            price: double.tryParse(priceC.text),
-            discountedPrice: double.tryParse(discountedPriceC.text),
-            totalPrice: double.tryParse(discountedPriceC.text),
-            size: Size(
-              heigt: double.tryParse(heightImageC.text),
-              width: double.tryParse(widthImageC.text),
-            ),
-            createdTime: DateTime.now().toIso8601String(),
-          ) ??
-          FlowerModel(
-            name: nameC.text,
-            description: descriptionC.text,
-            aboutTheProduct: aboutTheProductC.text,
-            price: double.tryParse(priceC.text),
-            discountedPrice: double.tryParse(discountedPriceC.text),
-            totalPrice: double.tryParse(discountedPriceC.text),
-            size: Size(
-              heigt: double.tryParse(heightImageC.text),
-              width: double.tryParse(widthImageC.text),
-            ),
-            createdTime: DateTime.now().toIso8601String(),
-          );
-      if (widget.model == null && bloc.state.file != null) {
-        bloc.add(AdminEvent.addNewProduct(flowerModel));
-      } else {
-        bloc.add(AdminEvent.updateProduct(product: flowerModel, file: bloc.state.file));
-      }
-    } else {
-      Utils.fireSnackBar(context, "Все поля должны быть заполнены", backgroundColor: Colors.red);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     log("BUILD AdminHomeScreen");
@@ -112,11 +66,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       bloc: bloc,
       listener: (context, state) {
         log("LISTENER AdminHomeScreen");
-        if (state.error != null) {
-          Utils.fireSnackBar(context, "${state.error}\n${DateTime.now().toLocal()}", backgroundColor: Colors.red);
-        } else if (state.error == null && !state.isLoading && state.file == null) {
+        if (state.isAddedNewProduct || state.isUpdatedProduct || state.isDeletedProduct) {
           Utils.fireSnackBar(context, "Успешно");
           context.pop(true);
+        }else if (state.error != null) {
+          Utils.fireSnackBar(context, "${state.error}\n${DateTime.now().toLocal()}", backgroundColor: Colors.red);
         }
       },
       builder: (context, state) {
@@ -152,7 +106,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 padding: REdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                 child: CustomHomeTopCard(
                                   image: FileImage(state.file!),
-                                  sale: true,
+                                  sale: state.isOnSale,
                                   onTap: () => bloc.add(const AdminEvent.pickFile()),
                                 ),
                               ),
@@ -172,7 +126,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             width: width,
                             child: CustomHomeTopCard(
                               image: _backgroundImage(state.file)!.image,
-                              sale: true,
+                              sale: state.isOnSale,
                               fit: BoxFit.cover,
                               onTap: () => bloc.add(const AdminEvent.pickFile()),
                             ),
@@ -248,6 +202,20 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           ),
                         ],
                       ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: state.isOnSale,
+                            onChanged: (value) {
+                              bloc.add(AdminEvent.toggleSale(value));
+                            },
+                            hoverColor: Colors.transparent,
+                            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+                          ),
+                          const Text(" Распродажа"),
+                        ],
+                      ),
                       20.verticalSpace,
                       MaterialButton(
                         onPressed: () => addNewProduct(),
@@ -295,6 +263,54 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         );
       },
     );
+  }
+
+  void addNewProduct() {
+    FocusScope.of(context).unfocus();
+    log("Image File: ${bloc.state.file?.path}");
+    if (nameC.text.isNotEmpty &&
+        descriptionC.text.isNotEmpty &&
+        aboutTheProductC.text.isNotEmpty &&
+        priceC.text.isNotEmpty &&
+        discountedPriceC.text.isNotEmpty &&
+        heightImageC.text.isNotEmpty &&
+        widthImageC.text.isNotEmpty) {
+      final flowerModel = widget.model?.copyWith(
+            name: nameC.text,
+            description: descriptionC.text,
+            aboutTheProduct: aboutTheProductC.text,
+            price: double.tryParse(priceC.text),
+            discountedPrice: double.tryParse(discountedPriceC.text),
+            totalPrice: double.tryParse(discountedPriceC.text),
+            size: Size(
+              heigt: double.tryParse(heightImageC.text),
+              width: double.tryParse(widthImageC.text),
+            ),
+            updatedTime: DateTime.now().toIso8601String(),
+            sale: bloc.state.isOnSale,
+          ) ??
+          FlowerModel(
+            name: nameC.text,
+            description: descriptionC.text,
+            aboutTheProduct: aboutTheProductC.text,
+            price: double.tryParse(priceC.text),
+            discountedPrice: double.tryParse(discountedPriceC.text),
+            totalPrice: double.tryParse(discountedPriceC.text),
+            size: Size(
+              heigt: double.tryParse(heightImageC.text),
+              width: double.tryParse(widthImageC.text),
+            ),
+            createdTime: DateTime.now().toIso8601String(),
+            sale: bloc.state.isOnSale,
+          );
+      if (widget.model == null && bloc.state.file != null) {
+        bloc.add(AdminEvent.addNewProduct(flowerModel));
+      } else {
+        bloc.add(AdminEvent.updateProduct(product: flowerModel, file: bloc.state.file));
+      }
+    } else {
+      Utils.fireSnackBar(context, "Все поля должны быть заполнены", backgroundColor: Colors.red);
+    }
   }
 
   DecorationImage? _backgroundImage([File? file]) {

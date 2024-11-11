@@ -1,7 +1,7 @@
 final class AppRouteNames {
 
   // Main
-  static const String splash = "/splash";
+  static const String splash = "/splash_screen";
   static const String home = "/";
   static const String homeDetail = "home_detail_screen";
   static const String cart = "cart_screen";

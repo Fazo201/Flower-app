@@ -14,6 +14,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   OrderBloc(this.appRepo) : super(const _Initial()) {
     on<_GetAllOrders>(_onGetAllOrders);
     on<_AddNewOrder>(_onAddNewOrder);
+    on<_UpdateOrder>(_onUpdeteOrder);
     on<_DeleteOrder>(_onDeleteOrder);
   }
 
@@ -41,6 +42,19 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       emit(state.copyWith(error: e.toString()));
     }finally{
       emit(state.copyWith(isLoading: false,isAddedNewOrder: false));
+    }
+  }
+
+  Future<void> _onUpdeteOrder(_UpdateOrder event, Emitter<OrderState> emit) async {
+    log("_onDeleteOrder");
+    try {
+      emit(state.copyWith(isLoading: true));
+      await appRepo.updateOrder(event.order);
+      add(const _GetAllOrders());
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }finally{
+      emit(state.copyWith(isLoading: false));
     }
   }
 

@@ -7,6 +7,7 @@ import "package:flower_app/src/feature/home/view/screens/home_detail_screen.dart
 import "package:flower_app/src/feature/home/view/screens/home_screen.dart";
 import "package:flower_app/src/feature/order/view/screens/order_detail_screen.dart";
 import "package:flower_app/src/feature/order/view/screens/order_screen.dart";
+import "package:flower_app/src/feature/splash/splash_screen.dart";
 import "package:flutter/cupertino.dart";
 import "package:go_router/go_router.dart";
 
@@ -15,8 +16,12 @@ final class RouterConfigService {
   const RouterConfigService._();
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppRouteNames.home,
+    initialLocation: AppRouteNames.splash,
     routes: [
+      GoRoute(
+        path: AppRouteNames.splash,
+        pageBuilder: (BuildContext context, GoRouterState state) => _customNavigatorTransitionAnimation(context, state, const SplashScreen()),
+      ),
       GoRoute(
         path: AppRouteNames.home,
         pageBuilder: (BuildContext context, GoRouterState state) => _customNavigatorTransitionAnimation(context, state, const HomeScreen()),

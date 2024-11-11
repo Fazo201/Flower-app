@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomOrderDetailCard extends StatelessWidget {
-  const CustomOrderDetailCard({super.key,
+  const CustomOrderDetailCard({
+    super.key,
     required this.model,
     this.onTapCard,
   });
@@ -37,7 +38,7 @@ class CustomOrderDetailCard extends StatelessWidget {
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(8.r),
                               image: DecorationImage(
-                                image: model.image != null ? NetworkImage(model.image!):const AssetImage("assets/icons/flower_icon.png"),
+                                image: model.image != null ? NetworkImage(model.image!) : const AssetImage("assets/icons/flower_icon.png"),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -69,21 +70,33 @@ class CustomOrderDetailCard extends StatelessWidget {
                   children: [
                     Text(
                       model.name ?? "",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                     ),
                     Text(
                       model.description ?? "",
-                      style: const TextStyle(height: 1.2),
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
                     ),
-                    Text("Высота: ${model.size?.heigt ?? ""} см"),
-                    Text("Ширина: ${model.size?.width ?? ""} см"),
-                    Text("Количество: ${model.count ?? ""}"),
-                    Text("Стоимость: ${model.price ?? ""} сум"),
+                    Text(
+                      "Высота: ${model.size?.heigt ?? ""} см",
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
+                    ),
+                    Text(
+                      "Ширина: ${model.size?.width ?? ""} см",
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
+                    ),
+                    Text(
+                      "Количество: ${model.count ?? ""}",
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
+                    ),
+                    Text(
+                      "Стоимость: ${model.price ?? ""} сум",
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
+                    ),
                     2.verticalSpace,
-                    Text("Общая стоимость: ${model.totalPrice ?? ""} сум"),
+                    Text(
+                      "Общая стоимость: ${model.totalPrice ?? ""} сум",
+                      style: TextStyle(height: 1.2, fontSize: 12.sp),
+                    ),
                   ],
                 ),
               ),

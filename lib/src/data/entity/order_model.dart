@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final orderModel = orderModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:flower_app/src/data/entity/flower_model.dart';
@@ -72,34 +68,5 @@ class OrderModel {
         "totalCount": totalCount,
         "totalCost": totalCost,
         "flowerModel": flowerModel == null ? [] : List<dynamic>.from(flowerModel!.map((x) => x.toJson())),
-    };
-}
-
-class Size {
-    double? heigt;
-    double? width;
-
-    Size({
-        this.heigt,
-        this.width,
-    });
-
-    Size copyWith({
-        double? heigt,
-        double? width,
-    }) => 
-        Size(
-            heigt: heigt ?? this.heigt,
-            width: width ?? this.width,
-        );
-
-    factory Size.fromJson(Map<String, dynamic> json) => Size(
-        heigt: json["heigt"]?.toDouble(),
-        width: json["width"]?.toDouble(),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "heigt": heigt,
-        "width": width,
     };
 }
