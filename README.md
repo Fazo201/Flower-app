@@ -16,3 +16,12 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/home.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/home_animation.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/home_detail.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/home_detail_to_cart.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/cart.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/place_an_order.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/order_not_received.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/order_empty.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/order_received.png)
+![image alt](https://github.com/Fazo201/Ish-Tajriba/blob/37381293c27740224b9e44562772b364c26c67dc/flower_app_screens/order_detail.png)
