@@ -89,7 +89,7 @@ class CustomOrderDetailCard extends StatelessWidget {
                       style: TextStyle(height: 1.2, fontSize: 12.sp),
                     ),
                     Text(
-                      "Стоимость: ${model.price ?? ""} сум",
+                      "Стоимость: ${model.discountedPrice ?? ""} сум",
                       style: TextStyle(height: 1.2, fontSize: 12.sp),
                     ),
                     2.verticalSpace,
