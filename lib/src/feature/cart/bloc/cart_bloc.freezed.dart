@@ -851,29 +851,29 @@ abstract class _Decrement implements CartEvent {
 
 /// @nodoc
 mixin _$CartState {
+  BlocStatus get status => throw _privateConstructorUsedError;
   List<FlowerModel> get productList => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
   double get totalCost => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
+  String? get msg => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)
+    required TResult Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)?
+    TResult? Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)?
+    TResult Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)?
         initial,
     required TResult orElse(),
   }) =>
@@ -908,11 +908,11 @@ abstract class $CartStateCopyWith<$Res> {
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
   $Res call(
-      {List<FlowerModel> productList,
+      {BlocStatus status,
+      List<FlowerModel> productList,
       int totalCount,
       double totalCost,
-      bool isLoading,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -930,13 +930,17 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? productList = null,
     Object? totalCount = null,
     Object? totalCost = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       productList: null == productList
           ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
@@ -949,13 +953,9 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.totalCost
           : totalCost // ignore: cast_nullable_to_non_nullable
               as double,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -970,11 +970,11 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<FlowerModel> productList,
+      {BlocStatus status,
+      List<FlowerModel> productList,
       int totalCount,
       double totalCost,
-      bool isLoading,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -990,13 +990,17 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? productList = null,
     Object? totalCount = null,
     Object? totalCost = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_$InitialImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       productList: null == productList
           ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
@@ -1009,13 +1013,9 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.totalCost
           : totalCost // ignore: cast_nullable_to_non_nullable
               as double,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1025,13 +1025,16 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<FlowerModel> productList = const [],
+      {this.status = BlocStatus.initial,
+      final List<FlowerModel> productList = const [],
       this.totalCount = 0,
       this.totalCost = 0,
-      this.isLoading = false,
-      this.error})
+      this.msg})
       : _productList = productList;
 
+  @override
+  @JsonKey()
+  final BlocStatus status;
   final List<FlowerModel> _productList;
   @override
   @JsonKey()
@@ -1048,14 +1051,11 @@ class _$InitialImpl implements _Initial {
   @JsonKey()
   final double totalCost;
   @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  final String? error;
+  final String? msg;
 
   @override
   String toString() {
-    return 'CartState.initial(productList: $productList, totalCount: $totalCount, totalCost: $totalCost, isLoading: $isLoading, error: $error)';
+    return 'CartState.initial(status: $status, productList: $productList, totalCount: $totalCount, totalCost: $totalCost, msg: $msg)';
   }
 
   @override
@@ -1063,25 +1063,24 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._productList, _productList) &&
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount) &&
             (identical(other.totalCost, totalCost) ||
                 other.totalCost == totalCost) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      status,
       const DeepCollectionEquality().hash(_productList),
       totalCount,
       totalCost,
-      isLoading,
-      error);
+      msg);
 
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.
@@ -1094,33 +1093,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)
+    required TResult Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)
         initial,
   }) {
-    return initial(productList, totalCount, totalCost, isLoading, error);
+    return initial(status, productList, totalCount, totalCost, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)?
+    TResult? Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)?
         initial,
   }) {
-    return initial?.call(productList, totalCount, totalCost, isLoading, error);
+    return initial?.call(status, productList, totalCount, totalCost, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, int totalCount,
-            double totalCost, bool isLoading, String? error)?
+    TResult Function(BlocStatus status, List<FlowerModel> productList,
+            int totalCount, double totalCost, String? msg)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(productList, totalCount, totalCost, isLoading, error);
+      return initial(status, productList, totalCount, totalCost, msg);
     }
     return orElse();
   }
@@ -1156,12 +1155,14 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements CartState {
   const factory _Initial(
-      {final List<FlowerModel> productList,
+      {final BlocStatus status,
+      final List<FlowerModel> productList,
       final int totalCount,
       final double totalCost,
-      final bool isLoading,
-      final String? error}) = _$InitialImpl;
+      final String? msg}) = _$InitialImpl;
 
+  @override
+  BlocStatus get status;
   @override
   List<FlowerModel> get productList;
   @override
@@ -1169,9 +1170,7 @@ abstract class _Initial implements CartState {
   @override
   double get totalCost;
   @override
-  bool get isLoading;
-  @override
-  String? get error;
+  String? get msg;
 
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.

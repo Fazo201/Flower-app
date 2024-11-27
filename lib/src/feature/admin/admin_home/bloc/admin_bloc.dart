@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flower_app/src/core/enums/bloc_status.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
 import 'package:flower_app/src/data/repository/app_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,15 +31,15 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
         File isImage = File(result.files.single.path!);
         String selectedFile = isImage.path.substring(isImage.path.lastIndexOf('.'));
         if (selectedFile == '.png' || selectedFile == ".jpg") {
-          emit(state.copyWith(file: isImage, error: null));
+          emit(state.copyWith(file: isImage));
         } else {
-          emit(state.copyWith(error: "Это не изображение"));
+          emit(state.copyWith(msg: "Это не изображение",status: BlocStatus.error));
         }
       }
     } catch (e) {
-      emit(state.copyWith(error: "Произошла ошибка при выборе файла: $e"));
+      emit(state.copyWith(msg: "Произошла ошибка при выборе файла: $e",status: BlocStatus.error));
     }finally{
-      emit(state.copyWith(error: null));
+      emit(state.copyWith(status: BlocStatus.success));
     }
   }
 
@@ -56,45 +57,45 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     log("_onAddNewProduct");
     try {
       if (state.file != null) {
-        emit(state.copyWith(isLoading: true));
+        emit(state.copyWith(status: BlocStatus.loading));
         await appRepo.addData(event.product, state.file!);
         add(const _RemoveFile());
         emit(state.copyWith(isAddedNewProduct: true));
       }else{
-        emit(state.copyWith(error: "Пожалуйста, сначала выберите изображение"));
+        emit(state.copyWith(msg: "Пожалуйста, сначала выберите изображение",status: BlocStatus.error));
       }
     } catch (e) {
-      emit(state.copyWith(error: "Этот продукт не добавлен $e"));
+      emit(state.copyWith(msg: "Этот продукт не добавлен $e",status: BlocStatus.error));
     }finally{
-      emit(state.copyWith(isLoading: false, error: null,isAddedNewProduct: false));
+      emit(state.copyWith(status: BlocStatus.success, isAddedNewProduct: false));
     }
   }
 
   Future<void> _onUpdateProduct(_UpdateProduct event, Emitter<AdminState> emit) async {
     log("_onUpdateProduct");
     try {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(status: BlocStatus.loading));
       await appRepo.updateData(event.product,state.file);
       add(const _RemoveFile());
       emit(state.copyWith(isUpdatedProduct: true));
     } catch (e) {
-      emit(state.copyWith(error: "Этот продукт не обновлен $e"));
+      emit(state.copyWith(msg: "Этот продукт не обновлен $e",status: BlocStatus.error));
     }finally{
-      emit(state.copyWith(isLoading: false, error: null,isUpdatedProduct: false));
+      emit(state.copyWith(status: BlocStatus.success, isUpdatedProduct: false));
     }
   }
 
   Future<void> _onDeleteProduct(_DeleteProduct event, Emitter<AdminState> emit) async {
     log("_onDeleteProduct");
     try {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(status: BlocStatus.loading));
       await appRepo.deleteData(event.product);
       add(const _RemoveFile());
       emit(state.copyWith(isDeletedProduct: true));
     } catch (e) {
-      emit(state.copyWith(error: "Этот продукт не удален $e"));
+      emit(state.copyWith(msg: "Этот продукт не удален $e", status: BlocStatus.error));
     }finally{
-      emit(state.copyWith(isLoading: false, error: null,isDeletedProduct: false));
+      emit(state.copyWith(status: BlocStatus.success, isDeletedProduct: false));
     }
   }
 }

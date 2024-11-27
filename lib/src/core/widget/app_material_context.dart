@@ -1,8 +1,8 @@
+import "package:flower_app/src/core/routes/router_config.dart";
 import "package:flower_app/src/core/style/app_theme.dart";
 import "package:flutter/material.dart";
 import "../../feature/settings/inherited_theme_notifier.dart";
 import "../../feature/settings/theme_controller.dart";
-import "../routes/router_config.dart";
 
 final ThemeController themeController = ThemeController();
 
@@ -20,6 +20,9 @@ class AppMaterialContext extends StatelessWidget {
             
             routerConfig: RouterConfigService.router,
           ),
+          // builder: (context) => const MaterialApp(
+          //   home: AuthScreen(),
+          // ),
         ),
       );
 }

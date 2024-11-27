@@ -1028,49 +1028,49 @@ abstract class _DeleteProduct implements AdminEvent {
 
 /// @nodoc
 mixin _$AdminState {
+  BlocStatus get status => throw _privateConstructorUsedError;
   File? get file => throw _privateConstructorUsedError;
   bool get isOnSale => throw _privateConstructorUsedError;
   bool get isAddedNewProduct => throw _privateConstructorUsedError;
   bool get isUpdatedProduct => throw _privateConstructorUsedError;
   bool get isDeletedProduct => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
+  String? get msg => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)
+            String? msg)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)?
+            String? msg)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)?
+            String? msg)?
         initial,
     required TResult orElse(),
   }) =>
@@ -1106,13 +1106,13 @@ abstract class $AdminStateCopyWith<$Res> {
       _$AdminStateCopyWithImpl<$Res, AdminState>;
   @useResult
   $Res call(
-      {File? file,
+      {BlocStatus status,
+      File? file,
       bool isOnSale,
       bool isAddedNewProduct,
       bool isUpdatedProduct,
       bool isDeletedProduct,
-      bool isLoading,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -1130,15 +1130,19 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? file = freezed,
     Object? isOnSale = null,
     Object? isAddedNewProduct = null,
     Object? isUpdatedProduct = null,
     Object? isDeletedProduct = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -1159,13 +1163,9 @@ class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
           ? _value.isDeletedProduct
           : isDeletedProduct // ignore: cast_nullable_to_non_nullable
               as bool,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -1180,13 +1180,13 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {File? file,
+      {BlocStatus status,
+      File? file,
       bool isOnSale,
       bool isAddedNewProduct,
       bool isUpdatedProduct,
       bool isDeletedProduct,
-      bool isLoading,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -1202,15 +1202,19 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? file = freezed,
     Object? isOnSale = null,
     Object? isAddedNewProduct = null,
     Object? isUpdatedProduct = null,
     Object? isDeletedProduct = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_$InitialImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -1231,13 +1235,9 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isDeletedProduct
           : isDeletedProduct // ignore: cast_nullable_to_non_nullable
               as bool,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1247,14 +1247,17 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {this.file,
+      {this.status = BlocStatus.initial,
+      this.file,
       this.isOnSale = false,
       this.isAddedNewProduct = false,
       this.isUpdatedProduct = false,
       this.isDeletedProduct = false,
-      this.isLoading = false,
-      this.error});
+      this.msg});
 
+  @override
+  @JsonKey()
+  final BlocStatus status;
   @override
   final File? file;
   @override
@@ -1270,14 +1273,11 @@ class _$InitialImpl implements _Initial {
   @JsonKey()
   final bool isDeletedProduct;
   @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  final String? error;
+  final String? msg;
 
   @override
   String toString() {
-    return 'AdminState.initial(file: $file, isOnSale: $isOnSale, isAddedNewProduct: $isAddedNewProduct, isUpdatedProduct: $isUpdatedProduct, isDeletedProduct: $isDeletedProduct, isLoading: $isLoading, error: $error)';
+    return 'AdminState.initial(status: $status, file: $file, isOnSale: $isOnSale, isAddedNewProduct: $isAddedNewProduct, isUpdatedProduct: $isUpdatedProduct, isDeletedProduct: $isDeletedProduct, msg: $msg)';
   }
 
   @override
@@ -1285,6 +1285,7 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.isOnSale, isOnSale) ||
                 other.isOnSale == isOnSale) &&
@@ -1294,14 +1295,12 @@ class _$InitialImpl implements _Initial {
                 other.isUpdatedProduct == isUpdatedProduct) &&
             (identical(other.isDeletedProduct, isDeletedProduct) ||
                 other.isDeletedProduct == isDeletedProduct) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, file, isOnSale,
-      isAddedNewProduct, isUpdatedProduct, isDeletedProduct, isLoading, error);
+  int get hashCode => Object.hash(runtimeType, status, file, isOnSale,
+      isAddedNewProduct, isUpdatedProduct, isDeletedProduct, msg);
 
   /// Create a copy of AdminState
   /// with the given fields replaced by the non-null parameter values.
@@ -1315,53 +1314,53 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)
+            String? msg)
         initial,
   }) {
-    return initial(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
-        isDeletedProduct, isLoading, error);
+    return initial(status, file, isOnSale, isAddedNewProduct, isUpdatedProduct,
+        isDeletedProduct, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)?
+            String? msg)?
         initial,
   }) {
-    return initial?.call(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
-        isDeletedProduct, isLoading, error);
+    return initial?.call(status, file, isOnSale, isAddedNewProduct,
+        isUpdatedProduct, isDeletedProduct, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            BlocStatus status,
             File? file,
             bool isOnSale,
             bool isAddedNewProduct,
             bool isUpdatedProduct,
             bool isDeletedProduct,
-            bool isLoading,
-            String? error)?
+            String? msg)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(file, isOnSale, isAddedNewProduct, isUpdatedProduct,
-          isDeletedProduct, isLoading, error);
+      return initial(status, file, isOnSale, isAddedNewProduct,
+          isUpdatedProduct, isDeletedProduct, msg);
     }
     return orElse();
   }
@@ -1397,14 +1396,16 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements AdminState {
   const factory _Initial(
-      {final File? file,
+      {final BlocStatus status,
+      final File? file,
       final bool isOnSale,
       final bool isAddedNewProduct,
       final bool isUpdatedProduct,
       final bool isDeletedProduct,
-      final bool isLoading,
-      final String? error}) = _$InitialImpl;
+      final String? msg}) = _$InitialImpl;
 
+  @override
+  BlocStatus get status;
   @override
   File? get file;
   @override
@@ -1416,9 +1417,7 @@ abstract class _Initial implements AdminState {
   @override
   bool get isDeletedProduct;
   @override
-  bool get isLoading;
-  @override
-  String? get error;
+  String? get msg;
 
   /// Create a copy of AdminState
   /// with the given fields replaced by the non-null parameter values.

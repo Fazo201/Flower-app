@@ -233,28 +233,28 @@ abstract class _GetAllProducts implements HomeEvent {
 
 /// @nodoc
 mixin _$HomeState {
+  BlocStatus get status => throw _privateConstructorUsedError;
   List<FlowerModel> get productList => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
+  String? get msg => throw _privateConstructorUsedError;
   bool? get isRefreshCompleted => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)
+    required TResult Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)?
+    TResult? Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)?
+    TResult Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)?
         initial,
     required TResult orElse(),
   }) =>
@@ -289,9 +289,9 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
   $Res call(
-      {List<FlowerModel> productList,
-      bool isLoading,
-      String? error,
+      {BlocStatus status,
+      List<FlowerModel> productList,
+      String? msg,
       bool? isRefreshCompleted});
 }
 
@@ -310,23 +310,23 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? productList = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
     Object? isRefreshCompleted = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       productList: null == productList
           ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<FlowerModel>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
       isRefreshCompleted: freezed == isRefreshCompleted
           ? _value.isRefreshCompleted
@@ -345,9 +345,9 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<FlowerModel> productList,
-      bool isLoading,
-      String? error,
+      {BlocStatus status,
+      List<FlowerModel> productList,
+      String? msg,
       bool? isRefreshCompleted});
 }
 
@@ -364,23 +364,23 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? productList = null,
-    Object? isLoading = null,
-    Object? error = freezed,
+    Object? msg = freezed,
     Object? isRefreshCompleted = freezed,
   }) {
     return _then(_$InitialImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       productList: null == productList
           ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<FlowerModel>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
       isRefreshCompleted: freezed == isRefreshCompleted
           ? _value.isRefreshCompleted
@@ -394,12 +394,15 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<FlowerModel> productList = const [],
-      this.isLoading = false,
-      this.error,
+      {this.status = BlocStatus.initial,
+      final List<FlowerModel> productList = const [],
+      this.msg,
       this.isRefreshCompleted})
       : _productList = productList;
 
+  @override
+  @JsonKey()
+  final BlocStatus status;
   final List<FlowerModel> _productList;
   @override
   @JsonKey()
@@ -410,16 +413,13 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  final String? error;
+  final String? msg;
   @override
   final bool? isRefreshCompleted;
 
   @override
   String toString() {
-    return 'HomeState.initial(productList: $productList, isLoading: $isLoading, error: $error, isRefreshCompleted: $isRefreshCompleted)';
+    return 'HomeState.initial(status: $status, productList: $productList, msg: $msg, isRefreshCompleted: $isRefreshCompleted)';
   }
 
   @override
@@ -427,11 +427,10 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._productList, _productList) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.error, error) || other.error == error) &&
+            (identical(other.msg, msg) || other.msg == msg) &&
             (identical(other.isRefreshCompleted, isRefreshCompleted) ||
                 other.isRefreshCompleted == isRefreshCompleted));
   }
@@ -439,9 +438,9 @@ class _$InitialImpl implements _Initial {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      status,
       const DeepCollectionEquality().hash(_productList),
-      isLoading,
-      error,
+      msg,
       isRefreshCompleted);
 
   /// Create a copy of HomeState
@@ -455,33 +454,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)
+    required TResult Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)
         initial,
   }) {
-    return initial(productList, isLoading, error, isRefreshCompleted);
+    return initial(status, productList, msg, isRefreshCompleted);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)?
+    TResult? Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)?
         initial,
   }) {
-    return initial?.call(productList, isLoading, error, isRefreshCompleted);
+    return initial?.call(status, productList, msg, isRefreshCompleted);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<FlowerModel> productList, bool isLoading,
-            String? error, bool? isRefreshCompleted)?
+    TResult Function(BlocStatus status, List<FlowerModel> productList,
+            String? msg, bool? isRefreshCompleted)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(productList, isLoading, error, isRefreshCompleted);
+      return initial(status, productList, msg, isRefreshCompleted);
     }
     return orElse();
   }
@@ -517,17 +516,17 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements HomeState {
   const factory _Initial(
-      {final List<FlowerModel> productList,
-      final bool isLoading,
-      final String? error,
+      {final BlocStatus status,
+      final List<FlowerModel> productList,
+      final String? msg,
       final bool? isRefreshCompleted}) = _$InitialImpl;
 
   @override
+  BlocStatus get status;
+  @override
   List<FlowerModel> get productList;
   @override
-  bool get isLoading;
-  @override
-  String? get error;
+  String? get msg;
   @override
   bool? get isRefreshCompleted;
 

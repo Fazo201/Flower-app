@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flower_app/setup.dart';
+import 'package:flower_app/src/core/enums/bloc_status.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
 import 'package:flower_app/src/core/widget/custom_loading.dart';
 import 'package:flower_app/src/feature/order/bloc/order_bloc.dart';
@@ -59,7 +60,7 @@ class OrderScreen extends StatelessWidget {
                 ),
               ),
             ),
-            CustomLoading(visible: state.isLoading),
+            CustomLoading(visible: state.status==BlocStatus.loading),
           ],
         );
       },

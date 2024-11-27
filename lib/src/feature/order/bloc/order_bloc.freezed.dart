@@ -664,28 +664,28 @@ abstract class _DeleteOrder implements OrderEvent {
 
 /// @nodoc
 mixin _$OrderState {
+  BlocStatus get status => throw _privateConstructorUsedError;
   List<OrderModel> get orderList => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
   bool get isAddedNewOrder => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
+  String? get msg => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)
+    required TResult Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)?
+    TResult? Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)?
+    TResult Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)?
         initial,
     required TResult orElse(),
   }) =>
@@ -721,10 +721,10 @@ abstract class $OrderStateCopyWith<$Res> {
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
   $Res call(
-      {List<OrderModel> orderList,
-      bool isLoading,
+      {BlocStatus status,
+      List<OrderModel> orderList,
       bool isAddedNewOrder,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -742,27 +742,27 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? orderList = null,
-    Object? isLoading = null,
     Object? isAddedNewOrder = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       orderList: null == orderList
           ? _value.orderList
           : orderList // ignore: cast_nullable_to_non_nullable
               as List<OrderModel>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
       isAddedNewOrder: null == isAddedNewOrder
           ? _value.isAddedNewOrder
           : isAddedNewOrder // ignore: cast_nullable_to_non_nullable
               as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -777,10 +777,10 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<OrderModel> orderList,
-      bool isLoading,
+      {BlocStatus status,
+      List<OrderModel> orderList,
       bool isAddedNewOrder,
-      String? error});
+      String? msg});
 }
 
 /// @nodoc
@@ -796,27 +796,27 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? orderList = null,
-    Object? isLoading = null,
     Object? isAddedNewOrder = null,
-    Object? error = freezed,
+    Object? msg = freezed,
   }) {
     return _then(_$InitialImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BlocStatus,
       orderList: null == orderList
           ? _value._orderList
           : orderList // ignore: cast_nullable_to_non_nullable
               as List<OrderModel>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
       isAddedNewOrder: null == isAddedNewOrder
           ? _value.isAddedNewOrder
           : isAddedNewOrder // ignore: cast_nullable_to_non_nullable
               as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      msg: freezed == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -826,12 +826,15 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {final List<OrderModel> orderList = const [],
-      this.isLoading = false,
+      {this.status = BlocStatus.initial,
+      final List<OrderModel> orderList = const [],
       this.isAddedNewOrder = false,
-      this.error})
+      this.msg})
       : _orderList = orderList;
 
+  @override
+  @JsonKey()
+  final BlocStatus status;
   final List<OrderModel> _orderList;
   @override
   @JsonKey()
@@ -843,16 +846,13 @@ class _$InitialImpl implements _Initial {
 
   @override
   @JsonKey()
-  final bool isLoading;
-  @override
-  @JsonKey()
   final bool isAddedNewOrder;
   @override
-  final String? error;
+  final String? msg;
 
   @override
   String toString() {
-    return 'OrderState.initial(orderList: $orderList, isLoading: $isLoading, isAddedNewOrder: $isAddedNewOrder, error: $error)';
+    return 'OrderState.initial(status: $status, orderList: $orderList, isAddedNewOrder: $isAddedNewOrder, msg: $msg)';
   }
 
   @override
@@ -860,22 +860,17 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._orderList, _orderList) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
             (identical(other.isAddedNewOrder, isAddedNewOrder) ||
                 other.isAddedNewOrder == isAddedNewOrder) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.msg, msg) || other.msg == msg));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_orderList),
-      isLoading,
-      isAddedNewOrder,
-      error);
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_orderList), isAddedNewOrder, msg);
 
   /// Create a copy of OrderState
   /// with the given fields replaced by the non-null parameter values.
@@ -888,33 +883,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)
+    required TResult Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)
         initial,
   }) {
-    return initial(orderList, isLoading, isAddedNewOrder, error);
+    return initial(status, orderList, isAddedNewOrder, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)?
+    TResult? Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)?
         initial,
   }) {
-    return initial?.call(orderList, isLoading, isAddedNewOrder, error);
+    return initial?.call(status, orderList, isAddedNewOrder, msg);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<OrderModel> orderList, bool isLoading,
-            bool isAddedNewOrder, String? error)?
+    TResult Function(BlocStatus status, List<OrderModel> orderList,
+            bool isAddedNewOrder, String? msg)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(orderList, isLoading, isAddedNewOrder, error);
+      return initial(status, orderList, isAddedNewOrder, msg);
     }
     return orElse();
   }
@@ -950,19 +945,19 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements OrderState {
   const factory _Initial(
-      {final List<OrderModel> orderList,
-      final bool isLoading,
+      {final BlocStatus status,
+      final List<OrderModel> orderList,
       final bool isAddedNewOrder,
-      final String? error}) = _$InitialImpl;
+      final String? msg}) = _$InitialImpl;
 
+  @override
+  BlocStatus get status;
   @override
   List<OrderModel> get orderList;
   @override
-  bool get isLoading;
-  @override
   bool get isAddedNewOrder;
   @override
-  String? get error;
+  String? get msg;
 
   /// Create a copy of OrderState
   /// with the given fields replaced by the non-null parameter values.

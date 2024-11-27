@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flower_app/src/core/constants/context_extension.dart';
+import 'package:flower_app/src/core/enums/bloc_status.dart';
 import 'package:flower_app/src/core/widget/custom_loading.dart';
 import 'package:flower_app/src/core/widget/my_text_field.dart';
 import 'package:flower_app/src/core/widget/utils.dart';
@@ -69,8 +70,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         if (state.isAddedNewProduct || state.isUpdatedProduct || state.isDeletedProduct) {
           Utils.fireSnackBar(context, "Успешно");
           context.pop(true);
-        }else if (state.error != null) {
-          Utils.fireSnackBar(context, "${state.error}\n${DateTime.now().toLocal()}", backgroundColor: Colors.red);
+        }else if (state.status == BlocStatus.error) {
+          Utils.fireSnackBar(context, state.msg!, backgroundColor: Colors.red);
         }
       },
       builder: (context, state) {
@@ -216,7 +217,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           const Text(" Распродажа"),
                         ],
                       ),
-                      20.verticalSpace,
+                      10.verticalSpace,
                       MaterialButton(
                         onPressed: () => addNewProduct(),
                         height: 54,
@@ -228,12 +229,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
+                      20.verticalSpace,
                     ],
                   ),
                 ),
               ),
             ),
-            CustomLoading(visible: state.isLoading),
+            CustomLoading(visible: state.status == BlocStatus.loading),
           ],
         );
       },

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flower_app/setup.dart';
+import 'package:flower_app/src/core/enums/bloc_status.dart';
 import 'package:flower_app/src/core/routes/app_route_names.dart';
 import 'package:flower_app/src/core/widget/custom_icon_button.dart';
 import 'package:flower_app/src/core/widget/custom_loading.dart';
@@ -24,8 +25,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final TextEditingController nameC = TextEditingController();
-  final TextEditingController phoneNumberC = TextEditingController(text: "+998 ");
+  final nameC = TextEditingController(text: name);
+  final phoneNumberC = TextEditingController(text: phoneNumber);
   final _formKey = GlobalKey<FormState>();
   late CartBloc cartBloc;
   late OrderBloc orderBloc;
@@ -34,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     cartBloc = context.read<CartBloc>();
     orderBloc = context.read<OrderBloc>();
+    // nameC.text = name ?? "";
     super.initState();
   }
 
@@ -131,7 +133,7 @@ class _CartScreenState extends State<CartScreen> {
                       )
                     : null,
               ),
-              CustomLoading(visible: context.watch<OrderBloc>().state.isLoading),
+              CustomLoading(visible: context.watch<OrderBloc>().state.status==BlocStatus.loading),
             ],
           );
         },
@@ -140,7 +142,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _addToOrderDialog() {
-    nameC.text = name ?? "";
+    log(phoneNumber??"null");
     showDialog(
       context: context,
       builder: (context) {
@@ -219,6 +221,6 @@ class _CartScreenState extends State<CartScreen> {
   final phoneFormat = MaskTextInputFormatter(
     mask: '+998 (##) ###-##-##',
     filter: {"#": RegExp(r'[0-9]')},
-    initialText: phoneNumber ?? "+998 ",
+    initialText: phoneNumber,
   );
 }

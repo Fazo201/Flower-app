@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flower_app/src/core/enums/bloc_status.dart';
 import 'package:flower_app/src/data/entity/flower_model.dart';
 import 'package:flower_app/src/data/repository/app_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,13 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _onGetAllProducts(_GetAllProducts event, Emitter<HomeState> emit) async {
     log("_onGetAllProducts");
     try {
-      emit(state.copyWith(isLoading: true, isRefreshCompleted: false));
+      emit(state.copyWith(status: BlocStatus.loading, isRefreshCompleted: false));
       final List<FlowerModel> flowerList = await appRepo.getAllData();
-      emit(state.copyWith(productList: flowerList));
+      emit(state.copyWith(productList: flowerList,status: BlocStatus.success));
     } catch (e) {
-      emit(state.copyWith(error: e.toString()));
+      emit(state.copyWith(msg: e.toString(),status: BlocStatus.error));
     } finally {
-      emit(state.copyWith(isLoading: false, isRefreshCompleted: event.isRefresh));
+      emit(state.copyWith(isRefreshCompleted: event.isRefresh));
     }
   }
 }
